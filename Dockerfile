@@ -1,3 +1,4 @@
+# [해당 문서를 참고하였습니다](https://thesorauniverse.com/posts/kr/golang/making-golang-docker-img-best-practices/)
 FROM golang:1.16.3 AS builder
 
 ENV GO111MODULE=on \
@@ -7,7 +8,7 @@ ENV GO111MODULE=on \
 
 WORKDIR /build
 
-COPY go.mod go.sum main.go ./
+COPY . .
 
 RUN go mod download
 
