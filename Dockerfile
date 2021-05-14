@@ -11,7 +11,7 @@ COPY go.mod go.sum main.go ./
 
 RUN go mod download
 
-RUN go build main.go
+RUN go build -o main .
 
 WORKDIR /dist
 
