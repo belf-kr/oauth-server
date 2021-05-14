@@ -1,6 +1,8 @@
 package main
 
 import (
+	"oauth-server/controller"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -11,5 +13,6 @@ func main() {
 			"message": "pong",
 		})
 	})
+	r.GET("/login", controller.Login)
 	r.Run(":3000")
 }
