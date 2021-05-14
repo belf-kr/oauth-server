@@ -15,3 +15,4 @@ redis와 의존됩니다.
 
 1. `go mod init oauth-server`
 1. `go get -u github.com/gin-gonic/gin`
+1. `Launch Package` 템플릿으로 디버깅 환경 구축
