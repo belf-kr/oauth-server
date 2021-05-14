@@ -1,0 +1,65 @@
+# ❗️주의❗️: aks cicd를 태스트 하기 위한 workflows 이므로 image tag가 `test`으로 고정되어있습니다.
+
+name: aks test deploy
+
+on:
+  push:
+    branches:
+      - test
+
+env:
+  IMAGE_HOST: ghcr.io/${{ github.repository }}
+  IMAGE_NAME: nextjs
+  IMAGE_TAG: test
+  NAMESPACE: test
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - name: repo checkout
+        uses: actions/checkout@v2
+
+      - name: build image
+        run: docker build . --file Dockerfile --tag $IMAGE_NAME
+
+      - name: log into registry
+        run: echo "${{ secrets.CR_PAT }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: push image
+        run: |
+          docker tag $IMAGE_NAME $IMAGE_HOST/$IMAGE_NAME:$IMAGE_TAG
+          docker push $IMAGE_HOST/$IMAGE_NAME:$IMAGE_TAG
+
+      - name: aks login
+        uses: azure/aks-set-context@v1
+        with:
+          creds: "${{ secrets.AZURE_CREDENTIALS }}"
+          resource-group: "${{ secrets.CLUSTER_RESOURCE_GROUP }}"
+          cluster-name: "${{ secrets.CLUSTER_NAME }}"
+        id: login
+
+      - name: create namespace
+        run: |
+          kubectl create namespace ${{ env.NAMESPACE }} --dry-run -o json | kubectl apply -f -
+
+      - name: aks apply object
+        uses: Azure/k8s-deploy@v1.4
+        with:
+          namespace: ${{ env.NAMESPACE }}
+          manifests: |
+            ./k8s/test.yaml
+          images: |
+            ${{ env.IMAGE_HOST }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+
+      - name: aks apply service for ingress
+        uses: Azure/k8s-deploy@v1.4
+        with:
+          namespace: ingress-basic
+          manifests: |
+            ./k8s/test-external.yaml
+
+      - name: slack notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
