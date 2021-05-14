@@ -14,3 +14,4 @@ redis와 의존됩니다.
 ## 프로젝트 생성 방법
 
 1. `go mod init oauth-server`
+1. `go get -u github.com/gin-gonic/gin`
