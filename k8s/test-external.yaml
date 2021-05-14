@@ -1,8 +1,8 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: external-test-front-server
+  name: external-test-oauth-server
   namespace: ingress-basic
 spec:
   type: ExternalName
-  externalName: front-server.test
+  externalName: oauth-server.test

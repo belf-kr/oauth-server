@@ -1,32 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: front-server
+  name: oauth-server
   namespace: qa
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: front-server
+      app: oauth-server
   template:
     metadata:
       labels:
-        app: front-server
+        app: oauth-server
     spec:
       containers:
-        - name: front-server
-          image: ghcr.io/belf-kr/front-server/nextjs
+        - name: oauth-server
+          image: ghcr.io/belf-kr/oauth-server/gin
           ports:
             - containerPort: 3000
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: front-server
+  name: oauth-server
   namespace: qa
 spec:
   type: ClusterIP
   ports:
     - port: 3000
   selector:
-    app: front-server
+    app: oauth-server

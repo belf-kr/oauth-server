@@ -9,7 +9,7 @@ on:
 
 env:
   IMAGE_HOST: ghcr.io/${{ github.repository }}
-  IMAGE_NAME: nextjs
+  IMAGE_NAME: gin
   IMAGE_TAG: test
   NAMESPACE: test
 
