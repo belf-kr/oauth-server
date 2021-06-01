@@ -14,7 +14,7 @@ func Valid(c *gin.Context) {
 		DateTime time.Time `json:"dateTime"`
 	}
 	msg.Id = 1
-	msg.Message = "토근 값이 정상입니다."
+	msg.Message = "토큰이 유효합니다."
 	msg.DateTime = time.Now()
 	c.JSON(http.StatusOK, msg)
 }
