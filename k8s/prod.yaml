@@ -16,6 +16,7 @@ spec:
       containers:
         - name: oauth-server
           image: ghcr.io/belf-kr/oauth-server/gin
+          imagePullPolicy: "Always"
           ports:
             - containerPort: 3000
 ---
