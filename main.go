@@ -2,14 +2,17 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 	"oauth-server/controller"
 	"oauth-server/controller/token"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
 
 const (
-	version = "v0.1.0"
+	name    = "oauth-server"
+	version = "0.1.0"
 )
 
 func init() {
@@ -19,11 +22,23 @@ func init() {
 func main() {
 	r := gin.Default()
 
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
+	r.GET("/", func(c *gin.Context) {
+		resData := []byte(name)
+		c.Data(http.StatusOK, "text/html; charset=utf-8", resData)
 	})
+	r.GET("/ping", func(c *gin.Context) {
+		resData := []byte(`OK`)
+		c.Data(http.StatusOK, "text/html; charset=utf-8", resData)
+	})
+	r.GET("/version", func(c *gin.Context) {
+		resData := []byte(version)
+		c.Data(http.StatusOK, "text/html; charset=utf-8", resData)
+	})
+	r.GET("/env", func(c *gin.Context) {
+		resData := os.Environ()
+		c.JSON(http.StatusOK, resData)
+	})
+
 	r.GET("/login", controller.Login)
 	r.GET("/token/valid", token.Valid)
 
