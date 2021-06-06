@@ -1,0 +1,8 @@
+
+@Host = http://localhost:3000
+
+### 로그인
+GET {{Host}}/login
+
+### 토큰 검사
+GET {{Host}}/token/valid
