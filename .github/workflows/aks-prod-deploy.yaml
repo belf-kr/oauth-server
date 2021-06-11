@@ -1,4 +1,4 @@
-name: aks prod deploy
+name: AKS-Deploy-Prod
 
 on:
   push:

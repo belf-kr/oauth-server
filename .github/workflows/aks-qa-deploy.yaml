@@ -1,4 +1,4 @@
-name: aks qa deploy
+name: AKS-Deploy-Qa
 
 on:
   pull_request:
