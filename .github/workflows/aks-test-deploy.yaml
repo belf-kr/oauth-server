@@ -1,6 +1,6 @@
 # ❗️주의❗️: aks cicd를 태스트 하기 위한 workflows 이므로 image tag가 `test`으로 고정되어있습니다.
 
-name: aks test deploy
+name: AKS-Deploy-Test
 
 on:
   push:
