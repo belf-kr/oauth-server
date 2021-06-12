@@ -19,3 +19,10 @@ OAuth 인증서버를 구축합니다.
 # 빠른 시작
 
 1. vscode에서 `F5` 혹은 `go run main.go` 으로 시작합니다.
+
+# 의존성
+
+| 이름                                       | 명령어                                |
+| ------------------------------------------ | ------------------------------------- |
+| [gin](https://github.com/gin-gonic/gin)    | `go get -u github.com/gin-gonic/gin`  |
+| [redis](https://github.com/go-redis/redis) | `go get github.com/go-redis/redis/v8` |
