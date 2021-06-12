@@ -52,3 +52,6 @@ Temporary Items
 .apdisk
 
 # End of https://www.toptal.com/developers/gitignore/api/go,macos
+
+### mysql (@parkgang, 박경은)
+docker/mysql-data
