@@ -9,7 +9,7 @@ OAuth 인증서버를 구축합니다.
 1. go:1.16.3
 1. vscode
 1. gin
-1. redis
+1. redis:6.2.4
 1. docker
 
 # 시퀀스 다이어그램
