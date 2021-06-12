@@ -1,14 +1,18 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 	"oauth-server/controller"
 	"oauth-server/controller/token"
-	_ "oauth-server/redis"
 	"os"
 
 	"github.com/gin-gonic/gin"
+)
+
+var (
+	ctx = context.Background()
 )
 
 const (
