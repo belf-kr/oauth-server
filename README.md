@@ -26,3 +26,4 @@ OAuth 인증서버를 구축합니다.
 | ------------------------------------------ | ------------------------------------- |
 | [gin](https://github.com/gin-gonic/gin)    | `go get -u github.com/gin-gonic/gin`  |
 | [redis](https://github.com/go-redis/redis) | `go get github.com/go-redis/redis/v8` |
+| [GORM](https://github.com/go-gorm/gorm)    | `go get -u gorm.io/gorm`              |
