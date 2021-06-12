@@ -1,18 +1,14 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"net/http"
 	"oauth-server/controller"
 	"oauth-server/controller/token"
+	"oauth-server/mysql"
 	"os"
 
 	"github.com/gin-gonic/gin"
-)
-
-var (
-	ctx = context.Background()
 )
 
 const (
@@ -25,6 +21,9 @@ func init() {
 }
 
 func main() {
+	// mysql query test
+	mysql.CreateTest()
+
 	r := gin.Default()
 
 	r.GET("/", func(c *gin.Context) {
