@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"oauth-server/controller"
 	"oauth-server/controller/token"
+	_ "oauth-server/redis"
 	"os"
 
 	"github.com/gin-gonic/gin"
