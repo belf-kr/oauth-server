@@ -22,7 +22,9 @@ func init() {
 }
 
 func main() {
-	port := viper.GetString("SERVER_PORT")
+	serverPort := viper.GetString("SERVER_PORT")
+	serverDomainName := viper.GetString("SERVER_DOMAIN_NAME")
+	serverUrl := fmt.Sprintf("%s:%s", serverDomainName, serverPort)
 
 	router := gin.Default()
 
@@ -46,17 +48,17 @@ func main() {
 		docs.SwaggerInfo.Title = "OAuth Server API"
 		docs.SwaggerInfo.Description = "사용자 정보를 다룰 수 있는 API를 제공하며 JWT 방법으로 로그인할 수 있는 기능을 제공합니다."
 		docs.SwaggerInfo.Version = project.AppVersion
-		docs.SwaggerInfo.Host = fmt.Sprintf("localhost%s", port)
+		docs.SwaggerInfo.Host = serverUrl
 		docs.SwaggerInfo.BasePath = "/api"
 		docs.SwaggerInfo.Schemes = []string{"http", "https"}
 
-		url := ginSwagger.URL(fmt.Sprintf("http://localhost%s/swagger/doc.json", port))
+		url := ginSwagger.URL(fmt.Sprintf("http://%s/swagger/doc.json", serverUrl))
 		router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 	}
 
-	log.Printf("gin server listening at http://localhost%s\n", port)
-	if err := router.Run(port); err != nil {
+	log.Printf("gin server listening at http://%s\n", serverUrl)
+	if err := router.Run(":" + serverPort); err != nil {
 		log.Fatal("gin server에서 예상하지 못한 에러가 발생하였습니다.\n\t" + err.Error())
 	}
-	log.Println("gin server close", port)
+	log.Println("gin server close", serverPort)
 }
