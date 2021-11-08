@@ -22,7 +22,7 @@ func init() {
 }
 
 func main() {
-	port := viper.GetString("server.port")
+	port := viper.GetString("SERVER_PORT")
 
 	router := gin.Default()
 

@@ -35,8 +35,8 @@ func GetUserInfo(token string, v *models.KakaoUserInformation) error {
 // 카카오 로그인이 완료되어 발급받은 인가 코드로 액세스 토큰과 리프레시 토큰을 발급 받습니다.
 func GetToken(code string, v *models.KakaoToken) (err error) {
 	endpoint := "https://kauth.kakao.com/oauth/token"
-	restApiKey := viper.GetString("kakao.restApiKey")
-	redirectUri := viper.GetString("kakao.redirectUri")
+	restApiKey := viper.GetString("KAKAO_REST_API_KEY")
+	redirectUri := viper.GetString("KAKAO_REDIRECT_URI")
 
 	data := url.Values{}
 	data.Set("grant_type", "authorization_code")

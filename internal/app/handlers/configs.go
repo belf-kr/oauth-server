@@ -16,8 +16,8 @@ import (
 // @Success 200 {object} models.Config
 // @Router /configs [get]
 func GetConfigs(c *gin.Context) {
-	restApiKey := viper.GetString("kakao.restApiKey")
-	redirectUri := viper.GetString("kakao.redirectUri")
+	restApiKey := viper.GetString("KAKAO_REST_API_KEY")
+	redirectUri := viper.GetString("KAKAO_REDIRECT_URI")
 
 	c.JSON(http.StatusOK, models.Config{
 		Kakao: models.Kakao{

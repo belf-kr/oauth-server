@@ -365,7 +365,7 @@ func UserTokenValid(c *gin.Context) {
 // @Failure 422 {object} models.ErrResponse
 // @Router /users/token/refresh [post]
 func UserTokenRefresh(c *gin.Context) {
-	refreshSecret := viper.GetString("REFRESH_SECRET")
+	refreshSecret := viper.GetString("JWT_REFRESH_SECRET")
 
 	mapToken := models.JWTRefreshToken{}
 	if err := c.ShouldBindJSON(&mapToken); err != nil {

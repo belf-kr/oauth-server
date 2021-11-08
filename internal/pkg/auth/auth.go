@@ -32,8 +32,8 @@ type AccessDetails struct {
 
 // jwt 토큰을 생성합니다.
 func CreateToken(userid uint64) (*TokenDetails, error) {
-	accessSecret := viper.GetString("ACCESS_SECRET")
-	refreshSecret := viper.GetString("REFRESH_SECRET")
+	accessSecret := viper.GetString("JWT_ACCESS_SECRET")
+	refreshSecret := viper.GetString("JWT_REFRESH_SECRET")
 
 	td := &TokenDetails{}
 	td.AtExpires = time.Now().Add(time.Minute * 15).Unix()
@@ -101,7 +101,7 @@ func TokenValid(r *http.Request) error {
 
 // VerifyToken 토큰 검증 합니다.
 func VerifyToken(r *http.Request) (*jwt.Token, error) {
-	accessSecret := viper.GetString("ACCESS_SECRET")
+	accessSecret := viper.GetString("JWT_ACCESS_SECRET")
 	tokenString := ExtractToken(r)
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		//Make sure that the token method conform to "SigningMethodHMAC"
