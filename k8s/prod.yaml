@@ -18,7 +18,7 @@ spec:
           image: ghcr.io/belf-kr/oauth-server/gin
           imagePullPolicy: "Always"
           ports:
-            - containerPort: 3000
+            - containerPort: 8080
           resources:
             requests:
               cpu: 100m
@@ -35,6 +35,6 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-    - port: 3000
+    - port: 8080
   selector:
     app: oauth-server
