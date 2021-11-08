@@ -1,11 +1,10 @@
 {
-  "server": {
-    "port": ":8080"
-  },
-  "kakao": {
-    "restApiKey": "",
-    "redirectUri": ""
-  },
+  "SERVER_PORT": "8080",
+  "SERVER_DOMAIN_NAME": "localhost",
+
+  "KAKAO_REST_API_KEY": "",
+  "KAKAO_REDIRECT_URI": "",
+
   "MYSQL_MASTER_HOST": "host.docker.internal",
   "MYSQL_MASTER_PORT": "3306",
   "MYSQL_MASTER_USERNAME": "root",
@@ -15,5 +14,10 @@
   "REDIS_HOST": "host.docker.internal",
   "REDIS_PORT": "6379",
   "REDIS_PASSWORD": "",
-  "REDIS_DATABASE": 0
+  "REDIS_DATABASE": 0,
+
+  "JWT_ACCESS_SECRET": "",
+  "JWT_REFRESH_SECRET": "",
+
+  "AUTH_REDIRECT_URL": "http://localhost:3000/auth-end"
 }
