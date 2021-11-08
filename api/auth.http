@@ -1,0 +1,44 @@
+@PROTOCOL = http://
+@HOSTNAME = localhost
+@PORT = 8080
+@HOST = {{HOSTNAME}}:{{PORT}}
+@URL = {{PROTOCOL}}{{HOST}}
+@API_END_POINT = {{URL}}/api
+@AccessToken = 일부로 "" 없습니다. 발급된 accessToken을 넣으세요
+@RefreshToken = "발급된 refreshToken을 넣으세요"
+
+### 회원가입
+POST {{API_END_POINT}}/users/signup
+Content-Type: application/json
+
+{
+    "name": "사용자01",
+    "email": "user01@test.com",
+    "password": "test1!",
+    "passwordConfirm": "test1!"
+}
+
+### 로그인 (AccessToken 발급)
+POST {{API_END_POINT}}/users/login
+Content-Type: application/json
+
+{
+    "email": "user01@test.com",
+    "password": "test1!"
+}
+
+### 로그아웃
+POST {{API_END_POINT}}/users/logout
+Authorization: Bearer {{AccessToken}}
+
+### 엑세스 토큰 검증
+GET {{API_END_POINT}}/users/token/valid
+Authorization: Bearer {{AccessToken}}
+
+### RefreshToken
+POST {{API_END_POINT}}/users/token/refresh
+Content-Type: application/json
+
+{
+    "refreshToken": {{RefreshToken}}
+}

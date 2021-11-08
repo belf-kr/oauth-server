@@ -1,0 +1,386 @@
+definitions:
+  entitys.KakaoTalkSocial:
+    properties:
+      email:
+        type: string
+      id:
+        type: integer
+      nickName:
+        type: string
+      thumbnailImageUrl:
+        description: 이미지의 url을 저장하기 위한 최대 크기로 잡아놓았습니다.
+        type: string
+    type: object
+  entitys.User:
+    properties:
+      avatarImage:
+        items:
+          type: integer
+        type: array
+      connectedAt:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      kakaoTalkSocial:
+        $ref: '#/definitions/entitys.KakaoTalkSocial'
+      kakaoTalkSocialsId:
+        type: integer
+      name:
+        type: string
+      password:
+        type: string
+    type: object
+  models.Config:
+    properties:
+      kakao:
+        $ref: '#/definitions/models.Kakao'
+    type: object
+  models.ErrResponse:
+    properties:
+      message:
+        example: 여기에 에러 메시지가 전달됩니다.
+        type: string
+    type: object
+  models.JWTRefreshToken:
+    properties:
+      refreshToken:
+        example: header.payLoad.signature
+        type: string
+    required:
+    - refreshToken
+    type: object
+  models.JWTToken:
+    properties:
+      accessToken:
+        example: header.payLoad.signature
+        type: string
+      refreshToken:
+        example: header.payLoad.signature
+        type: string
+    required:
+    - accessToken
+    - refreshToken
+    type: object
+  models.Kakao:
+    properties:
+      redirectUri:
+        example: http://localhost:8080/api/users/login/kakao
+        type: string
+      restApiKey:
+        example: 111aaaa1a111aaa1a111a1a1a11a1a11
+        type: string
+    type: object
+  models.Pong:
+    properties:
+      message:
+        example: pong
+        type: string
+    type: object
+  models.UserInfo:
+    properties:
+      avatarImage:
+        example: base64으로 인코딩된 이미지
+        type: string
+      email:
+        example: user01@test.com
+        type: string
+      id:
+        example: 1
+        type: integer
+      name:
+        example: 사용자01
+        type: string
+    required:
+    - avatarImage
+    - email
+    - id
+    - name
+    type: object
+  models.UserLogin:
+    properties:
+      email:
+        example: user01@test.com
+        type: string
+      password:
+        example: test1!
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  models.UserSignUp:
+    properties:
+      email:
+        example: user01@test.com
+        type: string
+      name:
+        example: 사용자01
+        type: string
+      password:
+        example: test1!
+        type: string
+      passwordConfirm:
+        example: test1!
+        type: string
+    required:
+    - email
+    - name
+    - password
+    - passwordConfirm
+    type: object
+info:
+  contact: {}
+paths:
+  /configs:
+    get:
+      consumes:
+      - application/json
+      description: client가 앱을 실행하기 위해 필요한 구성을 조회합니다.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Config'
+      summary: 구성 조회
+      tags:
+      - App
+  /ping:
+    get:
+      description: gin server의 헬스를 체크합니다.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Pong'
+      summary: Server Health Check
+  /users:
+    get:
+      consumes:
+      - application/json
+      description: token 클레임에 있는 id 값으로 사용자를 조회합니다.
+      parameters:
+      - description: Bearer {AccessToken}
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserInfo'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrResponse'
+        "404":
+          description: ""
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrResponse'
+      summary: 사용자 정보 조회
+      tags:
+      - User
+  /users/login:
+    post:
+      consumes:
+      - application/json
+      description: 로그인을 성공 시 JWT token이 발급됩니다.
+      parameters:
+      - description: 로그인 정보
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserLogin'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.JWTToken'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrResponse'
+        "404":
+          description: ""
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/models.ErrResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrResponse'
+      summary: 로그인
+      tags:
+      - User
+  /users/login/kakao:
+    get:
+      consumes:
+      - application/json
+      description: 카카오 oauth 인증 시 콜백되는 API 입니다. 환경변수에 주입된 경로로 token을 queryString에
+        실어서 리디렉션 합니다.
+      parameters:
+      - description: 카카오 로그인 성공 시 전달되는 인가 코드
+        in: query
+        name: code
+        type: string
+      produces:
+      - application/json
+      responses:
+        "302":
+          description: ""
+          headers:
+            Location:
+              description: http://localhost:3000/auth-end?accessToken=header.payLoad.signature&refreshToken=header.payLoad.signature
+              type: string
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/models.ErrResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrResponse'
+      summary: 카카오 로그인
+      tags:
+      - User
+  /users/logout:
+    post:
+      consumes:
+      - application/json
+      description: token 클레임에 있는 id 값으로 로그아웃 합니다.
+      parameters:
+      - description: Bearer {AccessToken}
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrResponse'
+      summary: 로그아웃
+      tags:
+      - User
+  /users/signup:
+    post:
+      consumes:
+      - application/json
+      description: 사용자를 생성합니다.
+      parameters:
+      - description: 회원가입을 위한 정보
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserSignUp'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          headers:
+            Location:
+              description: /users/1
+              type: string
+          schema:
+            $ref: '#/definitions/entitys.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrResponse'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/models.ErrResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrResponse'
+      summary: 회원가입
+      tags:
+      - User
+  /users/token/refresh:
+    post:
+      consumes:
+      - application/json
+      description: 엑세스 토큰이 만료되었을때 리프레쉬 토큰을 이용하여 새롭게 발급하기 위하여 사용됩니다.
+      parameters:
+      - description: 리프레쉬 토큰 정보
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/models.JWTRefreshToken'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.JWTToken'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/models.ErrResponse'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/models.ErrResponse'
+      summary: 리프레쉬 토큰 발급
+      tags:
+      - User
+  /users/token/valid:
+    get:
+      consumes:
+      - application/json
+      description: 올바르게 서명된 엑세스 토큰인지 검증합니다.
+      parameters:
+      - description: Bearer {AccessToken}
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrResponse'
+      summary: 엑세스 토큰 검증
+      tags:
+      - User
+swagger: "2.0"

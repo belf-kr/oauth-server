@@ -1,0 +1,23 @@
+{
+  "server": {
+    "port": ":8080"
+  },
+  "kakao": {
+    "restApiKey": "",
+    "redirectUri": ""
+  },
+  "MYSQL_MASTER_HOST": "localhost",
+  "MYSQL_MASTER_PORT": "3306",
+  "MYSQL_MASTER_USERNAME": "root",
+  "MYSQL_MASTER_PASSWORD": "example",
+  "MYSQL_MASTER_DATABASE": "modern_board",
+
+  "REDIS_HOST": "localhost",
+  "REDIS_PORT": "6379",
+  "REDIS_PASSWORD": "",
+  "REDIS_DATABASE": 0,
+
+  "ACCESS_SECRET": "",
+  "REFRESH_SECRET": "",
+  "AUTH_REDIRECT_URL": "http://localhost:3000/auth-end"
+}

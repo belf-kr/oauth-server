@@ -1,0 +1,11 @@
+# vscode-go 디버깅 파일
+__debug_bin
+
+# codegangsta/gin hot reloading시 발생하는 파일
+gin-bin
+
+# docker
+docker/**/data
+
+# 기타
+.DS_STORE

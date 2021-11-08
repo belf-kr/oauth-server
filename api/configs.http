@@ -1,0 +1,9 @@
+@PROTOCOL = http://
+@HOSTNAME = localhost
+@PORT = 8080
+@HOST = {{HOSTNAME}}:{{PORT}}
+@URL = {{PROTOCOL}}{{HOST}}
+@API_END_POINT = {{URL}}/api/configs
+
+### configs 조회
+GET {{API_END_POINT}}
