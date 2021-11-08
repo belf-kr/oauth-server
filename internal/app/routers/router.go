@@ -7,7 +7,7 @@ import (
 )
 
 func Use(api *gin.RouterGroup) {
-	api.GET("", handlers.AppName)
+	api.GET("/", handlers.AppName)
 	api.GET("/ping", handlers.Ping)
 	api.GET("/version", handlers.AppVersion)
 	api.GET("/env", handlers.AppEnv)

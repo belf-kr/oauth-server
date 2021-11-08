@@ -133,6 +133,17 @@ definitions:
 info:
   contact: {}
 paths:
+  /:
+    get:
+      description: 앱 이름을 응답합니다.
+      responses:
+        "200":
+          description: oauth-server
+          schema:
+            type: string
+      summary: 앱 이름
+      tags:
+      - App
   /configs:
     get:
       consumes:
@@ -148,9 +159,26 @@ paths:
       summary: 구성 조회
       tags:
       - App
+  /env:
+    get:
+      description: 앱의 환경변수를 응답합니다.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              items:
+                type: string
+              type: array
+            type: array
+      summary: 앱 환경 변수
+      tags:
+      - App
   /ping:
     get:
-      description: gin server의 헬스를 체크합니다.
+      description: server의 헬스를 체크합니다.
       produces:
       - application/json
       responses:
@@ -158,7 +186,9 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.Pong'
-      summary: Server Health Check
+      summary: server 헬스 체크
+      tags:
+      - App
   /users:
     get:
       consumes:
@@ -383,4 +413,15 @@ paths:
       summary: 엑세스 토큰 검증
       tags:
       - User
+  /version:
+    get:
+      description: 앱 버전을 응답합니다.
+      responses:
+        "200":
+          description: 0.1.0
+          schema:
+            type: string
+      summary: 앱 버전
+      tags:
+      - App
 swagger: "2.0"

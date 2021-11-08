@@ -24,6 +24,23 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/": {
+            "get": {
+                "description": "앱 이름을 응답합니다.",
+                "tags": [
+                    "App"
+                ],
+                "summary": "앱 이름",
+                "responses": {
+                    "200": {
+                        "description": "oauth-server",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/configs": {
             "get": {
                 "description": "client가 앱을 실행하기 위해 필요한 구성을 조회합니다.",
@@ -47,13 +64,42 @@ var doc = `{
                 }
             }
         },
-        "/ping": {
+        "/env": {
             "get": {
-                "description": "gin server의 헬스를 체크합니다.",
+                "description": "앱의 환경변수를 응답합니다.",
                 "produces": [
                     "application/json"
                 ],
-                "summary": "Server Health Check",
+                "tags": [
+                    "App"
+                ],
+                "summary": "앱 환경 변수",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/ping": {
+            "get": {
+                "description": "server의 헬스를 체크합니다.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "App"
+                ],
+                "summary": "server 헬스 체크",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -399,6 +445,23 @@ var doc = `{
                         "description": "Unauthorized",
                         "schema": {
                             "$ref": "#/definitions/models.ErrResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/version": {
+            "get": {
+                "description": "앱 버전을 응답합니다.",
+                "tags": [
+                    "App"
+                ],
+                "summary": "앱 버전",
+                "responses": {
+                    "200": {
+                        "description": "0.1.0",
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 }
