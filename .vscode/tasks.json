@@ -2,24 +2,6 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "cra start",
-      "type": "shell",
-      "command": "pm2",
-      "args": ["--name", "modern-board-cra", "start", "npm", "--", "start"],
-      "options": {
-        "cwd": "${workspaceFolder}/webapp"
-      }
-    },
-    {
-      "label": "cra kill",
-      "type": "shell",
-      "command": "pm2",
-      "args": ["kill", "--name", "modern-board-cra"],
-      "options": {
-        "cwd": "${workspaceFolder}/webapp"
-      }
-    },
-    {
       "label": "container up",
       "type": "shell",
       "command": "docker-compose",
@@ -43,7 +25,7 @@
       "command": "swag",
       "args": ["i"],
       "options": {
-        "cwd": "${workspaceFolder}/server",
+        "cwd": "${workspaceFolder}",
         "env": {
           "PATH": "${env:GOPATH}/bin:${env:PATH}"
         }
@@ -53,15 +35,9 @@
       "label": "live reloading gin server",
       "type": "shell",
       "command": "gin",
-      "args": [
-        // 기본 port는 cra webpack dev server와 port가 겹치므로 live reloading port를 변경합니다.
-        "--port",
-        "5100",
-        "--immediate",
-        "--notifications"
-      ],
+      "args": ["--port", "5100", "--immediate", "--notifications"],
       "options": {
-        "cwd": "${workspaceFolder}/server",
+        "cwd": "${workspaceFolder}",
         "env": {
           "PATH": "${env:GOPATH}/bin:${env:PATH}",
           "GO_ENV": "development"

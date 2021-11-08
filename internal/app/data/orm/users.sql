@@ -1,6 +1,6 @@
 # 유틸
-create database modern_board;
-use modern_board;
+create database belf;
+use belf;
 show databases;
 show tables;
 

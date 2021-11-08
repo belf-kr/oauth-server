@@ -6,12 +6,10 @@ import (
 	"time"
 
 	"github.com/gin-contrib/cors"
-	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
 	_ "github.com/parkgang/modern-board/configs"
 	"github.com/parkgang/modern-board/docs"
 	_ "github.com/parkgang/modern-board/internal/app/data/orm"
-	"github.com/parkgang/modern-board/internal/app/middlewares"
 	apiRouter "github.com/parkgang/modern-board/internal/app/routers"
 	"github.com/parkgang/modern-board/internal/pkg/project"
 	"github.com/spf13/viper"
@@ -41,20 +39,6 @@ func main() {
 	api := router.Group("/api")
 	{
 		apiRouter.Use(api)
-	}
-
-	// SPA
-	{
-		const spaPath string = "../webapp/build"
-		// 정적파일 응답에 헤더 추가 ("/" 경로에 헤더를 추가하기 위해서는 정적파일 서빙 미들웨어보다 위에 선언되어야 합니다)
-		router.Use(middlewares.SpaResponseHeaders())
-		// 정적파일 서빙
-		router.Use(static.Serve("/", static.LocalFile(spaPath, true)))
-		// [CSR Router를 위함](https://github.com/gin-gonic/contrib/issues/90#issuecomment-286924994)
-		router.NoRoute(func(c *gin.Context) {
-			// CRA에서 "homepage": "./" 와 같이 경로를 지정하면 index.html 파일 경로까지 지정해야합니다.
-			c.File(spaPath)
-		})
 	}
 
 	// Swagger

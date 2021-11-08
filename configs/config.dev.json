@@ -10,7 +10,7 @@
   "MYSQL_MASTER_PORT": "3306",
   "MYSQL_MASTER_USERNAME": "root",
   "MYSQL_MASTER_PASSWORD": "example",
-  "MYSQL_MASTER_DATABASE": "modern_board",
+  "MYSQL_MASTER_DATABASE": "belf",
 
   "REDIS_HOST": "localhost",
   "REDIS_PORT": "6379",
