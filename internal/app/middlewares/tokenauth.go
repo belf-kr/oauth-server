@@ -3,9 +3,9 @@ package middlewares
 import (
 	"net/http"
 
+	"github.com/belf-kr/oauth-server/internal/app/models"
+	"github.com/belf-kr/oauth-server/internal/pkg/auth"
 	"github.com/gin-gonic/gin"
-	"github.com/parkgang/modern-board/internal/app/models"
-	"github.com/parkgang/modern-board/internal/pkg/auth"
 )
 
 func TokenAuthMiddleware() gin.HandlerFunc {

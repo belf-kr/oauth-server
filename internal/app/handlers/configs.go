@@ -3,8 +3,8 @@ package handlers
 import (
 	"net/http"
 
+	"github.com/belf-kr/oauth-server/internal/app/models"
 	"github.com/gin-gonic/gin"
-	"github.com/parkgang/modern-board/internal/app/models"
 	"github.com/spf13/viper"
 )
 

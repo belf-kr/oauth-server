@@ -3,7 +3,7 @@ package entitys
 import (
 	"time"
 
-	"github.com/parkgang/modern-board/internal/pkg/util"
+	"github.com/belf-kr/oauth-server/internal/pkg/util"
 	"gorm.io/gorm"
 )
 

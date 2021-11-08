@@ -1,9 +1,9 @@
 package routers
 
 import (
+	"github.com/belf-kr/oauth-server/internal/app/handlers"
+	"github.com/belf-kr/oauth-server/internal/app/middlewares"
 	"github.com/gin-gonic/gin"
-	"github.com/parkgang/modern-board/internal/app/handlers"
-	"github.com/parkgang/modern-board/internal/app/middlewares"
 )
 
 func Use(api *gin.RouterGroup) {

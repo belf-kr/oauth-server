@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/parkgang/modern-board/internal/app/entitys"
+	"github.com/belf-kr/oauth-server/internal/app/entitys"
 	"github.com/spf13/viper"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"

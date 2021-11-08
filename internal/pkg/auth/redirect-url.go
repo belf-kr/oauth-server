@@ -3,7 +3,7 @@ package auth
 import (
 	"fmt"
 
-	"github.com/parkgang/modern-board/internal/app/models"
+	"github.com/belf-kr/oauth-server/internal/app/models"
 	"github.com/spf13/viper"
 )
 

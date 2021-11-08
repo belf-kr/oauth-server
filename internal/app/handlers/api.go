@@ -6,8 +6,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/parkgang/modern-board/internal/app/models"
-	"github.com/parkgang/modern-board/internal/pkg/project"
+	"github.com/belf-kr/oauth-server/internal/app/models"
+	"github.com/belf-kr/oauth-server/internal/pkg/project"
 )
 
 func AppName(c *gin.Context) {

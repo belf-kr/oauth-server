@@ -8,8 +8,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/belf-kr/oauth-server/internal/app/data/redis"
 	"github.com/golang-jwt/jwt"
-	"github.com/parkgang/modern-board/internal/app/data/redis"
 	"github.com/pkg/errors"
 	"github.com/spf13/viper"
 	"github.com/twinj/uuid"
