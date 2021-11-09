@@ -18,10 +18,13 @@ import (
 )
 
 func init() {
+	stages := viper.GetString("STAGES")
 	fmt.Printf("version: %s\n", project.AppVersion)
+	fmt.Printf("stages: %s\n", stages)
 }
 
 func main() {
+	stages := viper.GetString("STAGES")
 	serverPort := viper.GetString("SERVER_PORT")
 	swaggerHostname := viper.GetString("SWAGGER_HOSTNAME")
 	swaggerPort := viper.GetString("SWAGGER_PORT")
@@ -46,14 +49,27 @@ func main() {
 
 	// Swagger
 	{
+		var protocol string
+		var schemes []string
+
+		switch stages {
+		case "local":
+			protocol = "http"
+			schemes = []string{"http", "https"}
+		// local 이외 qa, prod 환경의 경우 https으로만 배포되므로 해당 프로콜로만 조회 및 요청되도록 고정
+		default:
+			protocol = "https"
+			schemes = []string{"https"}
+		}
+
 		docs.SwaggerInfo.Title = "OAuth Server API"
 		docs.SwaggerInfo.Description = "사용자 정보를 다룰 수 있는 API를 제공하며 JWT 방법으로 로그인할 수 있는 기능을 제공합니다."
 		docs.SwaggerInfo.Version = project.AppVersion
 		docs.SwaggerInfo.Host = swaggerHost
 		docs.SwaggerInfo.BasePath = "/api"
-		docs.SwaggerInfo.Schemes = []string{"http", "https"}
+		docs.SwaggerInfo.Schemes = schemes
 
-		url := ginSwagger.URL(fmt.Sprintf("http://%s/swagger/doc.json", swaggerHost))
+		url := ginSwagger.URL(fmt.Sprintf("%s://%s/swagger/doc.json", protocol, swaggerHost))
 		router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 	}
 

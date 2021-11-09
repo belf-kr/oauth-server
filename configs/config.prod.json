@@ -1,4 +1,6 @@
 {
+  "STAGES": "local",
+
   "SERVER_PORT": "8080",
 
   "SWAGGER_HOSTNAME": "localhost",
@@ -6,6 +8,10 @@
 
   "KAKAO_REST_API_KEY": "",
   "KAKAO_REDIRECT_URI": "",
+
+  "JWT_ACCESS_SECRET": "",
+  "JWT_REFRESH_SECRET": "",
+  "AUTH_REDIRECT_URL": "http://localhost:3000/auth-end",
 
   "MYSQL_MASTER_HOST": "host.docker.internal",
   "MYSQL_MASTER_PORT": "3306",
@@ -16,10 +22,5 @@
   "REDIS_HOST": "host.docker.internal",
   "REDIS_PORT": "6379",
   "REDIS_PASSWORD": "",
-  "REDIS_DATABASE": 0,
-
-  "JWT_ACCESS_SECRET": "",
-  "JWT_REFRESH_SECRET": "",
-
-  "AUTH_REDIRECT_URL": "http://localhost:3000/auth-end"
+  "REDIS_DATABASE": 0
 }

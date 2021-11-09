@@ -27,6 +27,12 @@ spec:
               cpu: 100m
               memory: 100Mi
           env:
+            - name: STAGES
+              valueFrom:
+                configMapKeyRef:
+                  name: qa-config
+                  key: STAGES
+
             - name: SWAGGER_HOSTNAME
               valueFrom:
                 configMapKeyRef:
