@@ -1,25 +1,31 @@
-# [해당 문서를 참고하였습니다](https://thesorauniverse.com/posts/kr/golang/making-golang-docker-img-best-practices/)
-FROM golang:1.16.3 AS builder
+FROM golang:1.16.3 AS golang-builder
 
-ENV GO111MODULE=on \
-    CGO_ENABLED=0 \
-    GOOS=linux \
-    GOARCH=amd64
+ENV GO111MODULE=on
+ENV CGO_ENABLED=0
+ENV GOOS=linux
+ENV GOARCH=amd64
 
 WORKDIR /build
-
-COPY . .
-
+COPY ./go.mod ./
+COPY ./go.sum ./
 RUN go mod download
-
-RUN go build -o main .
+COPY ./ ./
+RUN go build -o main ./
 
 WORKDIR /dist
-
-RUN cp /build/main .
+RUN cp /build/main ./
+RUN cp /build/configs/config.prod.json ./
 
 FROM scratch
 
-COPY --from=builder /dist/main .
+LABEL author="parkgang[Kyungeun Park]<ruddms936@naver.com>"
+LABEL version="0.1.0"
+
+ENV GO_ENV=production
+
+COPY --from=golang-builder /dist/main ./
+COPY --from=golang-builder /dist/config.prod.json ./configs/config.prod.json
+
+EXPOSE 8080
 
 ENTRYPOINT ["/main"]
