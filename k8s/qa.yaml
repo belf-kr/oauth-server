@@ -57,6 +57,24 @@ spec:
                   name: qa-config
                   key: KAKAO_REDIRECT_URI
 
+            - name: JWT_ACCESS_SECRET
+              valueFrom:
+                configMapKeyRef:
+                  name: qa-config
+                  key: JWT_ACCESS_SECRET
+
+            - name: JWT_REFRESH_SECRET
+              valueFrom:
+                configMapKeyRef:
+                  name: qa-config
+                  key: JWT_REFRESH_SECRET
+
+            - name: AUTH_REDIRECT_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: qa-config
+                  key: AUTH_REDIRECT_URL
+
             - name: MYSQL_MASTER_HOST
               valueFrom:
                 configMapKeyRef:
@@ -110,24 +128,6 @@ spec:
                 configMapKeyRef:
                   name: qa-config
                   key: REDIS_MASTER_DATABASE
-
-            - name: JWT_ACCESS_SECRET
-              valueFrom:
-                configMapKeyRef:
-                  name: qa-config
-                  key: JWT_ACCESS_SECRET
-
-            - name: JWT_REFRESH_SECRET
-              valueFrom:
-                configMapKeyRef:
-                  name: qa-config
-                  key: JWT_REFRESH_SECRET
-
-            - name: AUTH_REDIRECT_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: qa-config
-                  key: AUTH_REDIRECT_URL
 ---
 apiVersion: v1
 kind: Service
