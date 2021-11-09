@@ -26,6 +26,108 @@ spec:
             limits:
               cpu: 100m
               memory: 100Mi
+          env:
+            - name: STAGES
+              valueFrom:
+                configMapKeyRef:
+                  name: prod-config
+                  key: STAGES
+
+            - name: SWAGGER_HOSTNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: prod-config
+                  key: SWAGGER_HOSTNAME
+
+            - name: SWAGGER_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: prod-config
+                  key: SWAGGER_PORT
+
+            - name: KAKAO_REST_API_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: prod-config
+                  key: KAKAO_REST_API_KEY
+
+            - name: KAKAO_REDIRECT_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: prod-config
+                  key: KAKAO_REDIRECT_URI
+
+            - name: JWT_ACCESS_SECRET
+              valueFrom:
+                configMapKeyRef:
+                  name: prod-config
+                  key: JWT_ACCESS_SECRET
+
+            - name: JWT_REFRESH_SECRET
+              valueFrom:
+                configMapKeyRef:
+                  name: prod-config
+                  key: JWT_REFRESH_SECRET
+
+            - name: AUTH_REDIRECT_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: prod-config
+                  key: AUTH_REDIRECT_URL
+
+            - name: MYSQL_MASTER_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: prod-config
+                  key: DB_MASTER_HOST
+
+            - name: MYSQL_MASTER_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: prod-config
+                  key: DB_MASTER_PORT
+
+            - name: MYSQL_MASTER_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: prod-config
+                  key: DB_MASTER_USERNAME
+
+            - name: MYSQL_MASTER_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: prod-config
+                  key: DB_MASTER_PASSWORD
+
+            - name: MYSQL_MASTER_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: prod-config
+                  key: DB_MASTER_DATABASE
+
+            - name: REDIS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: prod-config
+                  key: REDIS_MASTER_HOST
+
+            - name: REDIS_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: prod-config
+                  key: REDIS_MASTER_PORT
+
+            - name: REDIS_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: prod-config
+                  key: REDIS_MASTER_PASSWORD
+
+            - name: REDIS_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: prod-config
+                  key: REDIS_MASTER_DATABASE
 ---
 apiVersion: v1
 kind: Service
