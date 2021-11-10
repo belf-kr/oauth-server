@@ -21,10 +21,10 @@ spec:
             - containerPort: 8080
           resources:
             requests:
-              cpu: 100m
-              memory: 50Mi
+              cpu: 5m
+              memory: 100Mi
             limits:
-              cpu: 100m
+              cpu: 5m
               memory: 100Mi
           env:
             - name: STAGES
