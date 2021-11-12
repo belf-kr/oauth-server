@@ -6,7 +6,7 @@ ENV GOOS=linux
 ENV GOARCH=amd64
 
 # [x509: certificate signed by unknown authority를 해결하기 위해서 CA certificates 추가](https://velog.io/@byron1st/x.509-certificate-signed-by-unknown-authority)
-RUN apt-get update && apt-get upgrade && apt-get add --no-cache ca-certificates
+RUN apt-get update && apt-get -y upgrade && apt-get add --no-cache ca-certificates
 
 WORKDIR /build
 COPY ./go.mod ./
