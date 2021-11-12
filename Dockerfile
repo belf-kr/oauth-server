@@ -5,6 +5,9 @@ ENV CGO_ENABLED=0
 ENV GOOS=linux
 ENV GOARCH=amd64
 
+# [x509: certificate signed by unknown authority를 해결하기 위해서 CA certificates 추가](https://velog.io/@byron1st/x.509-certificate-signed-by-unknown-authority)
+RUN apt-get update && apt-get -y upgrade && apt-get install ca-certificates
+
 WORKDIR /build
 COPY ./go.mod ./
 COPY ./go.sum ./
@@ -25,6 +28,7 @@ ENV GO_ENV=production
 
 COPY --from=golang-builder /dist/main ./
 COPY --from=golang-builder /dist/config.prod.json ./configs/config.prod.json
+COPY --from=golang-builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 
 EXPOSE 8080
 
