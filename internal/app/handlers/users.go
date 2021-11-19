@@ -19,7 +19,6 @@ import (
 	"github.com/go-sql-driver/mysql"
 	"github.com/golang-jwt/jwt"
 	"github.com/spf13/viper"
-	"gorm.io/gorm"
 )
 
 // @Summary 회원가입
@@ -253,37 +252,31 @@ func UserKakaoLoginCallBack(c *gin.Context) {
 }
 
 // @Summary 사용자 정보 조회
-// @Description token 클레임에 있는 id 값으로 사용자를 조회합니다.
+// @Description 사용자 이메일으로 사용자를 조회합니다.
 // @Tags User
 // @Accept json
 // @Produce json
-// @Param Authorization header string true "Bearer {AccessToken}"
+// @Param userEmail path string true "사용자 Email"
 // @Success 200 {object} models.UserInfo
-// @Failure 401 {object} models.ErrResponse
 // @Failure 404
 // @Failure 500 {object} models.ErrResponse
-// @Router /users [get]
+// @Router /users/{userEmail} [get]
 func UserInfo(c *gin.Context) {
-	au, err := auth.ExtractTokenMetadata(c.Request)
-	if err != nil {
-		c.JSON(http.StatusUnauthorized, models.ErrResponse{
+	userEmail := c.Param("userEmail")
+	if userEmail == "" {
+		c.Status(http.StatusBadRequest)
+		return
+	}
+
+	user := entitys.User{}
+	if err := orm.Client.Where("email = ?", userEmail).Find(&user).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, models.ErrResponse{
 			Message: err.Error(),
 		})
 		return
 	}
-
-	users := entitys.User{
-		Id: uint(au.UserId),
-	}
-	if err := orm.Client.First(&users).Error; err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {
-			c.Status(http.StatusNotFound)
-			return
-		}
-
-		c.JSON(http.StatusInternalServerError, models.ErrResponse{
-			Message: err.Error(),
-		})
+	if userEmail != user.Email {
+		c.Status(http.StatusNotFound)
 		return
 	}
 
@@ -291,7 +284,7 @@ func UserInfo(c *gin.Context) {
 	var base64Encoding string
 
 	// 이미지 파일의 콘텐츠 유형에 맞게 적절한 URI 체계 헤더를 추가합니다.
-	mimeType := http.DetectContentType(users.AvatarImage)
+	mimeType := http.DetectContentType(user.AvatarImage)
 	switch mimeType {
 	case "image/jpeg":
 		base64Encoding += "data:image/jpeg;base64,"
@@ -299,12 +292,12 @@ func UserInfo(c *gin.Context) {
 		base64Encoding += "data:image/png;base64,"
 	}
 
-	base64Encoding += base64.StdEncoding.EncodeToString(users.AvatarImage)
+	base64Encoding += base64.StdEncoding.EncodeToString(user.AvatarImage)
 
 	res := models.UserInfo{
-		Id:          int(users.Id),
-		Email:       users.Email,
-		Name:        users.Name,
+		Id:          int(user.Id),
+		Email:       user.Email,
+		Name:        user.Name,
 		AvatarImage: base64Encoding,
 	}
 	c.JSON(http.StatusOK, res)

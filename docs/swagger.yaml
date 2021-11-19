@@ -189,15 +189,15 @@ paths:
       summary: server 헬스 체크
       tags:
       - App
-  /users:
+  /users/{userEmail}:
     get:
       consumes:
       - application/json
-      description: token 클레임에 있는 id 값으로 사용자를 조회합니다.
+      description: 사용자 이메일으로 사용자를 조회합니다.
       parameters:
-      - description: Bearer {AccessToken}
-        in: header
-        name: Authorization
+      - description: 사용자 Email
+        in: path
+        name: userEmail
         required: true
         type: string
       produces:
@@ -207,10 +207,6 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.UserInfo'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/models.ErrResponse'
         "404":
           description: ""
         "500":
