@@ -122,7 +122,7 @@ var doc = `{
                 "tags": [
                     "User"
                 ],
-                "summary": "사용자 정보 조회",
+                "summary": "Token으로 사용자 정보 조회",
                 "parameters": [
                     {
                         "type": "string",
@@ -443,6 +443,50 @@ var doc = `{
                     },
                     "401": {
                         "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{userEmail}": {
+            "get": {
+                "description": "사용자 이메일으로 사용자를 조회합니다.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Email로 사용자 정보 조회",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "사용자 Email",
+                        "name": "userEmail",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.UserInfo"
+                        }
+                    },
+                    "400": {
+                        "description": ""
+                    },
+                    "404": {
+                        "description": ""
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
                         "schema": {
                             "$ref": "#/definitions/models.ErrResponse"
                         }
