@@ -261,7 +261,7 @@ func UserKakaoLoginCallBack(c *gin.Context) {
 // @Failure 404
 // @Failure 500 {object} models.ErrResponse
 // @Router /users/{userEmail} [get]
-func UserInfo(c *gin.Context) {
+func UserInfoEmailQuey(c *gin.Context) {
 	userEmail := c.Param("userEmail")
 	if userEmail == "" {
 		c.Status(http.StatusBadRequest)
