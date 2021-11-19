@@ -252,7 +252,7 @@ func UserKakaoLoginCallBack(c *gin.Context) {
 	c.Redirect(http.StatusFound, redUrl)
 }
 
-// @Summary 사용자 정보 조회
+// @Summary Token으로 사용자 정보 조회
 // @Description token 클레임에 있는 id 값으로 사용자를 조회합니다.
 // @Tags User
 // @Accept json
@@ -272,10 +272,10 @@ func UserInfoTokenQuey(c *gin.Context) {
 		return
 	}
 
-	users := entitys.User{
+	user := entitys.User{
 		Id: uint(au.UserId),
 	}
-	if err := orm.Client.First(&users).Error; err != nil {
+	if err := orm.Client.First(&user).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			c.Status(http.StatusNotFound)
 			return
@@ -291,7 +291,7 @@ func UserInfoTokenQuey(c *gin.Context) {
 	var base64Encoding string
 
 	// 이미지 파일의 콘텐츠 유형에 맞게 적절한 URI 체계 헤더를 추가합니다.
-	mimeType := http.DetectContentType(users.AvatarImage)
+	mimeType := http.DetectContentType(user.AvatarImage)
 	switch mimeType {
 	case "image/jpeg":
 		base64Encoding += "data:image/jpeg;base64,"
@@ -299,18 +299,18 @@ func UserInfoTokenQuey(c *gin.Context) {
 		base64Encoding += "data:image/png;base64,"
 	}
 
-	base64Encoding += base64.StdEncoding.EncodeToString(users.AvatarImage)
+	base64Encoding += base64.StdEncoding.EncodeToString(user.AvatarImage)
 
 	res := models.UserInfo{
-		Id:          int(users.Id),
-		Email:       users.Email,
-		Name:        users.Name,
+		Id:          int(user.Id),
+		Email:       user.Email,
+		Name:        user.Name,
 		AvatarImage: base64Encoding,
 	}
 	c.JSON(http.StatusOK, res)
 }
 
-// @Summary 사용자 정보 조회
+// @Summary Email로 사용자 정보 조회
 // @Description 사용자 이메일으로 사용자를 조회합니다.
 // @Tags User
 // @Accept json
