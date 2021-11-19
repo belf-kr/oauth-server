@@ -110,6 +110,53 @@ var doc = `{
                 }
             }
         },
+        "/users": {
+            "get": {
+                "description": "token 클레임에 있는 id 값으로 사용자를 조회합니다.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Token으로 사용자 정보 조회",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer {AccessToken}",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.UserInfo"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrResponse"
+                        }
+                    },
+                    "404": {
+                        "description": ""
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/users/login": {
             "post": {
                 "description": "로그인을 성공 시 JWT token이 발급됩니다.",
@@ -415,7 +462,7 @@ var doc = `{
                 "tags": [
                     "User"
                 ],
-                "summary": "사용자 정보 조회",
+                "summary": "Email로 사용자 정보 조회",
                 "parameters": [
                     {
                         "type": "string",

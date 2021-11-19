@@ -189,6 +189,37 @@ paths:
       summary: server 헬스 체크
       tags:
       - App
+  /users:
+    get:
+      consumes:
+      - application/json
+      description: token 클레임에 있는 id 값으로 사용자를 조회합니다.
+      parameters:
+      - description: Bearer {AccessToken}
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserInfo'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrResponse'
+        "404":
+          description: ""
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrResponse'
+      summary: Token으로 사용자 정보 조회
+      tags:
+      - User
   /users/{userEmail}:
     get:
       consumes:
@@ -213,7 +244,7 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.ErrResponse'
-      summary: 사용자 정보 조회
+      summary: Email로 사용자 정보 조회
       tags:
       - User
   /users/login:
