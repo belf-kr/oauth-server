@@ -238,6 +238,8 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.UserInfo'
+        "400":
+          description: ""
         "404":
           description: ""
         "500":

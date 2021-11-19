@@ -479,6 +479,9 @@ var doc = `{
                             "$ref": "#/definitions/models.UserInfo"
                         }
                     },
+                    "400": {
+                        "description": ""
+                    },
                     "404": {
                         "description": ""
                     },

@@ -297,6 +297,7 @@ func UserInfoTokenQuey(c *gin.Context) {
 // @Produce json
 // @Param userEmail path string true "사용자 Email"
 // @Success 200 {object} models.UserInfo
+// @Failure 400
 // @Failure 404
 // @Failure 500 {object} models.ErrResponse
 // @Router /users/{userEmail} [get]
