@@ -263,7 +263,7 @@ func UserKakaoLoginCallBack(c *gin.Context) {
 // @Failure 404
 // @Failure 500 {object} models.ErrResponse
 // @Router /users [get]
-func UserInfo(c *gin.Context) {
+func UserInfoTokenQuey(c *gin.Context) {
 	au, err := auth.ExtractTokenMetadata(c.Request)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, models.ErrResponse{
