@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"encoding/base64"
 	"errors"
 	"fmt"
 	"io/ioutil"
@@ -287,26 +286,7 @@ func UserInfoTokenQuey(c *gin.Context) {
 		return
 	}
 
-	// [base64 encoding for any image](https://freshman.tech/snippets/go/image-to-base64/)
-	var base64Encoding string
-
-	// 이미지 파일의 콘텐츠 유형에 맞게 적절한 URI 체계 헤더를 추가합니다.
-	mimeType := http.DetectContentType(user.AvatarImage)
-	switch mimeType {
-	case "image/jpeg":
-		base64Encoding += "data:image/jpeg;base64,"
-	case "image/png":
-		base64Encoding += "data:image/png;base64,"
-	}
-
-	base64Encoding += base64.StdEncoding.EncodeToString(user.AvatarImage)
-
-	res := models.UserInfo{
-		Id:          int(user.Id),
-		Email:       user.Email,
-		Name:        user.Name,
-		AvatarImage: base64Encoding,
-	}
+	res := models.NewUserInfo(user)
 	c.JSON(http.StatusOK, res)
 }
 
@@ -339,26 +319,7 @@ func UserInfoEmailQuey(c *gin.Context) {
 		return
 	}
 
-	// [base64 encoding for any image](https://freshman.tech/snippets/go/image-to-base64/)
-	var base64Encoding string
-
-	// 이미지 파일의 콘텐츠 유형에 맞게 적절한 URI 체계 헤더를 추가합니다.
-	mimeType := http.DetectContentType(user.AvatarImage)
-	switch mimeType {
-	case "image/jpeg":
-		base64Encoding += "data:image/jpeg;base64,"
-	case "image/png":
-		base64Encoding += "data:image/png;base64,"
-	}
-
-	base64Encoding += base64.StdEncoding.EncodeToString(user.AvatarImage)
-
-	res := models.UserInfo{
-		Id:          int(user.Id),
-		Email:       user.Email,
-		Name:        user.Name,
-		AvatarImage: base64Encoding,
-	}
+	res := models.NewUserInfo(user)
 	c.JSON(http.StatusOK, res)
 }
 
