@@ -21,11 +21,11 @@ spec:
             - containerPort: 8080
           livenessProbe:
             httpGet:
-              path: /ping
+              path: /api/ping
               port: 8080
           readinessProbe:
             httpGet:
-              path: /ping
+              path: /api/ping
               port: 8080
           resources:
             requests:
