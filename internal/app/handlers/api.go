@@ -6,7 +6,6 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/belf-kr/oauth-server/internal/app/models"
 	"github.com/belf-kr/oauth-server/internal/pkg/project"
 )
 
@@ -23,13 +22,10 @@ func AppName(c *gin.Context) {
 // @Summary server 헬스 체크
 // @Description server의 헬스를 체크합니다.
 // @Tags App
-// @Produce json
-// @Success 200 {object} models.Pong
+// @Success 200
 // @Router /ping [get]
 func Ping(c *gin.Context) {
-	c.JSON(http.StatusOK, models.Pong{
-		Message: "pong",
-	})
+	c.Status(http.StatusOK)
 }
 
 // @Summary 앱 버전

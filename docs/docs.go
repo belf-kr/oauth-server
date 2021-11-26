@@ -93,19 +93,13 @@ var doc = `{
         "/ping": {
             "get": {
                 "description": "server의 헬스를 체크합니다.",
-                "produces": [
-                    "application/json"
-                ],
                 "tags": [
                     "App"
                 ],
                 "summary": "server 헬스 체크",
                 "responses": {
                     "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/models.Pong"
-                        }
+                        "description": ""
                     }
                 }
             }
@@ -619,15 +613,6 @@ var doc = `{
                 "restApiKey": {
                     "type": "string",
                     "example": "111aaaa1a111aaa1a111a1a1a11a1a11"
-                }
-            }
-        },
-        "models.Pong": {
-            "type": "object",
-            "properties": {
-                "message": {
-                    "type": "string",
-                    "example": "pong"
                 }
             }
         },
