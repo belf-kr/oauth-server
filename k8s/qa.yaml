@@ -19,6 +19,14 @@ spec:
           imagePullPolicy: "Always"
           ports:
             - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /api/ping
+              port: 8080
+          readinessProbe:
+            httpGet:
+              path: /api/ping
+              port: 8080
           resources:
             requests:
               cpu: 5m
