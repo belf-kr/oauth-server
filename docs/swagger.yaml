@@ -72,12 +72,6 @@ definitions:
         example: 111aaaa1a111aaa1a111a1a1a11a1a11
         type: string
     type: object
-  models.Pong:
-    properties:
-      message:
-        example: pong
-        type: string
-    type: object
   models.UserInfo:
     properties:
       avatarImage:
@@ -179,13 +173,9 @@ paths:
   /ping:
     get:
       description: server의 헬스를 체크합니다.
-      produces:
-      - application/json
       responses:
         "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.Pong'
+          description: ""
       summary: server 헬스 체크
       tags:
       - App
