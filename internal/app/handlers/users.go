@@ -21,7 +21,7 @@ import (
 	"gorm.io/gorm"
 )
 
-// @Summary 회원가입
+// @Summary 사용자 생성 (회원가입)
 // @Description 사용자를 생성합니다.
 // @Tags User
 // @Accept json
@@ -32,7 +32,7 @@ import (
 // @Failure 400 {object} models.ErrResponse
 // @Failure 409 {object} models.ErrResponse
 // @Failure 500 {object} models.ErrResponse
-// @Router /users/signup [post]
+// @Router /users [post]
 func UserSignup(c *gin.Context) {
 	userBody := models.UserSignUp{}
 
@@ -251,7 +251,7 @@ func UserKakaoLoginCallBack(c *gin.Context) {
 	c.Redirect(http.StatusFound, redUrl)
 }
 
-// @Summary Token으로 사용자 정보 조회
+// @Summary 사용자 조회
 // @Description token 클레임에 있는 id 값으로 사용자를 조회합니다.
 // @Tags User
 // @Accept json
@@ -343,8 +343,7 @@ func UserLogout(c *gin.Context) {
 		return
 	}
 
-	deleted, err := auth.DeleteAuth(au.AccessUuid)
-	if err != nil || deleted == 0 {
+	if deleted, err := auth.DeleteAuth(au.AccessUuid); err != nil || deleted == 0 {
 		c.JSON(http.StatusUnauthorized, models.ErrResponse{
 			Message: err.Error(),
 		})
@@ -542,6 +541,59 @@ func DeleteAvatar(c *gin.Context) {
 
 	if err := orm.Client.Model(&entitys.User{}).Where("id = ?", au.UserId).Update("AvatarImage", nil).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, models.ErrResponse{
+			Message: err.Error(),
+		})
+		return
+	}
+
+	c.Status(http.StatusNoContent)
+}
+
+// @Summary 사용자 삭제 (회원탈퇴)
+// @Description 사용자를 삭제합니다.
+// @Tags User
+// @Accept json
+// @Produce json
+// @Param Authorization header string true "Bearer {AccessToken}"
+// @Success 204
+// @Failure 401 {object} models.ErrResponse
+// @Failure 500 {object} models.ErrResponse
+// @Router /users [delete]
+func UserWithdrawal(c *gin.Context) {
+	au, err := auth.ExtractTokenMetadata(c.Request)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, models.ErrResponse{
+			Message: err.Error(),
+		})
+		return
+	}
+
+	// jwt claim에는 user table의 id만 존재하여 카카오톡 소셜 테이블을 삭제하기 위한 정보를 얻기 위해 조회
+	user := entitys.User{}
+	if err := orm.Client.Where("id = ?", au.UserId).Find(&user).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, models.ErrResponse{
+			Message: err.Error(),
+		})
+		return
+	}
+
+	// 카카오톡 소셜 테이블만 삭제하더라도 reference된 사용자 데이블도 cascade로 같이 삭제되지만 카카오 로그인이 아닌 회원가입의 경우 삭제되지 않기 때문에 2번의 쿼리로 사용자 데이터를 삭제하도록 합니다.
+	if err := orm.Client.Where("id = ?", au.UserId).Delete(&entitys.User{}).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, models.ErrResponse{
+			Message: err.Error(),
+		})
+		return
+	}
+
+	if err := orm.Client.Where("id = ?", user.KakaoTalkSocialsId).Delete(&entitys.KakaoTalkSocial{}).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, models.ErrResponse{
+			Message: err.Error(),
+		})
+		return
+	}
+
+	if deleted, err := auth.DeleteAuth(au.AccessUuid); err != nil || deleted == 0 {
+		c.JSON(http.StatusUnauthorized, models.ErrResponse{
 			Message: err.Error(),
 		})
 		return
