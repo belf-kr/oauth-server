@@ -584,5 +584,13 @@ func UserWithdrawal(c *gin.Context) {
 		return
 	}
 
+	deleted, err := auth.DeleteAuth(au.AccessUuid)
+	if err != nil || deleted == 0 {
+		c.JSON(http.StatusUnauthorized, models.ErrResponse{
+			Message: err.Error(),
+		})
+		return
+	}
+
 	c.Status(http.StatusNoContent)
 }
