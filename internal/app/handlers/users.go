@@ -528,6 +528,8 @@ func UploadAvatar(c *gin.Context) {
 // @Produce json
 // @Param Authorization header string true "Bearer {AccessToken}"
 // @Success 204
+// @Failure 401 {object} models.ErrResponse
+// @Failure 500 {object} models.ErrResponse
 // @Router /users/avatar [delete]
 func DeleteAvatar(c *gin.Context) {
 	au, err := auth.ExtractTokenMetadata(c.Request)
