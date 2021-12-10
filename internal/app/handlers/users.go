@@ -465,13 +465,13 @@ func UserTokenRefresh(c *gin.Context) {
 	}
 }
 
-// @Summary 사용자 프로필 사진 업로드
-// @Description 사용자 프로필 사진을 업로드 합니다.
+// @Summary 사용자 아바타 사진 업로드
+// @Description 사용자 아바타(프로필) 사진을 업로드 합니다.
 // @Tags User
 // @Accept mpfd
 // @Produce json
 // @Param Authorization header string true "Bearer {AccessToken}"
-// @Param file formData file true "프로필 사진"
+// @Param file formData file true "아바타 사진"
 // @Success 201
 // @Failure 400 {object} models.ErrResponse
 // @Failure 401 {object} models.ErrResponse
@@ -521,8 +521,8 @@ func UploadAvatar(c *gin.Context) {
 	c.Status(http.StatusCreated)
 }
 
-// @Summary 사용자 프로필 사진 삭제
-// @Description 사용자 프로필 사진을 삭제합니다.
+// @Summary 사용자 아바타 사진 삭제
+// @Description 사용자 아바타(프로필) 사진을 삭제합니다.
 // @Tags User
 // @Accept json
 // @Produce json

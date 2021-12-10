@@ -153,7 +153,7 @@ var doc = `{
         },
         "/users/avatar": {
             "post": {
-                "description": "사용자 프로필 사진을 업로드 합니다.",
+                "description": "사용자 아바타(프로필) 사진을 업로드 합니다.",
                 "consumes": [
                     "multipart/form-data"
                 ],
@@ -163,7 +163,7 @@ var doc = `{
                 "tags": [
                     "User"
                 ],
-                "summary": "사용자 프로필 사진 업로드",
+                "summary": "사용자 아바타 사진 업로드",
                 "parameters": [
                     {
                         "type": "string",
@@ -174,7 +174,7 @@ var doc = `{
                     },
                     {
                         "type": "file",
-                        "description": "프로필 사진",
+                        "description": "아바타 사진",
                         "name": "file",
                         "in": "formData",
                         "required": true
@@ -205,7 +205,7 @@ var doc = `{
                 }
             },
             "delete": {
-                "description": "사용자 프로필 사진을 삭제합니다.",
+                "description": "사용자 아바타(프로필) 사진을 삭제합니다.",
                 "consumes": [
                     "application/json"
                 ],
@@ -215,7 +215,7 @@ var doc = `{
                 "tags": [
                     "User"
                 ],
-                "summary": "사용자 프로필 사진 삭제",
+                "summary": "사용자 아바타 사진 삭제",
                 "parameters": [
                     {
                         "type": "string",
