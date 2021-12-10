@@ -520,3 +520,15 @@ func UploadAvatar(c *gin.Context) {
 
 	c.Status(http.StatusCreated)
 }
+
+// @Summary 사용자 프로필 사진 삭제
+// @Description 사용자 프로필 사진을 삭제합니다.
+// @Tags User
+// @Accept json
+// @Produce json
+// @Param Authorization header string true "Bearer {AccessToken}"
+// @Success 204
+// @Router /users/avatar [delete]
+func DeleteAvatar(c *gin.Context) {
+	c.Status(http.StatusNoContent)
+}

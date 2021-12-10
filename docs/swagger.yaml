@@ -240,6 +240,24 @@ paths:
       tags:
       - User
   /users/avatar:
+    delete:
+      consumes:
+      - application/json
+      description: 사용자 프로필 사진을 삭제합니다.
+      parameters:
+      - description: Bearer {AccessToken}
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: ""
+      summary: 사용자 프로필 사진 삭제
+      tags:
+      - User
     post:
       consumes:
       - multipart/form-data

@@ -203,6 +203,33 @@ var doc = `{
                         }
                     }
                 }
+            },
+            "delete": {
+                "description": "사용자 프로필 사진을 삭제합니다.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "사용자 프로필 사진 삭제",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer {AccessToken}",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": ""
+                    }
+                }
             }
         },
         "/users/login": {

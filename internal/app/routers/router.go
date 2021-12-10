@@ -24,6 +24,7 @@ func Use(api *gin.RouterGroup) {
 		users.GET("", middlewares.TokenAuthMiddleware(), handlers.UserInfoTokenQuey)
 		users.GET(":userEmail", handlers.UserInfoEmailQuey)
 		users.POST("/avatar", middlewares.TokenAuthMiddleware(), handlers.UploadAvatar)
+		users.DELETE("/avatar", middlewares.TokenAuthMiddleware(), handlers.DeleteAvatar)
 	}
 	configs := api.Group("/configs")
 	{
