@@ -464,3 +464,16 @@ func UserTokenRefresh(c *gin.Context) {
 		})
 	}
 }
+
+// @Summary 사용자 프로필 사진 업로드
+// @Description 사용자 프로필 사진을 업로드 합니다.
+// @Tags User
+// @Accept json
+// @Produce json
+// @Param Authorization header string true "Bearer {AccessToken}"
+// @Router /users/avatar [post]
+func UploadAvatar(c *gin.Context) {
+	c.JSON(http.StatusOK, map[string]string{
+		"조회": "완료",
+	})
+}

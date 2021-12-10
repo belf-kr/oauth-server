@@ -131,6 +131,30 @@
                 }
             }
         },
+        "/users/avatar": {
+            "post": {
+                "description": "사용자 프로필 사진을 업로드 합니다.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "사용자 프로필 사진 업로드",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer {AccessToken}",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ]
+            }
+        },
         "/users/login": {
             "post": {
                 "description": "로그인을 성공 시 JWT token이 발급됩니다.",

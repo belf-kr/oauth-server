@@ -239,6 +239,22 @@ paths:
       summary: Email로 사용자 정보 조회
       tags:
       - User
+  /users/avatar:
+    post:
+      consumes:
+      - application/json
+      description: 사용자 프로필 사진을 업로드 합니다.
+      parameters:
+      - description: Bearer {AccessToken}
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      summary: 사용자 프로필 사진 업로드
+      tags:
+      - User
   /users/login:
     post:
       consumes:
