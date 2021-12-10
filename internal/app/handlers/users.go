@@ -21,7 +21,7 @@ import (
 	"gorm.io/gorm"
 )
 
-// @Summary 회원가입
+// @Summary 사용자 생성 (회원가입)
 // @Description 사용자를 생성합니다.
 // @Tags User
 // @Accept json
@@ -32,7 +32,7 @@ import (
 // @Failure 400 {object} models.ErrResponse
 // @Failure 409 {object} models.ErrResponse
 // @Failure 500 {object} models.ErrResponse
-// @Router /users/signup [post]
+// @Router /users [post]
 func UserSignup(c *gin.Context) {
 	userBody := models.UserSignUp{}
 
@@ -251,7 +251,7 @@ func UserKakaoLoginCallBack(c *gin.Context) {
 	c.Redirect(http.StatusFound, redUrl)
 }
 
-// @Summary Token으로 사용자 정보 조회
+// @Summary 사용자 조회
 // @Description token 클레임에 있는 id 값으로 사용자를 조회합니다.
 // @Tags User
 // @Accept json
@@ -547,5 +547,19 @@ func DeleteAvatar(c *gin.Context) {
 		return
 	}
 
+	c.Status(http.StatusNoContent)
+}
+
+// @Summary 사용자 삭제 (회원탈퇴)
+// @Description 사용자를 삭제합니다.
+// @Tags User
+// @Accept json
+// @Produce json
+// @Param Authorization header string true "Bearer {AccessToken}"
+// @Success 204
+// @Failure 401 {object} models.ErrResponse
+// @Failure 500 {object} models.ErrResponse
+// @Router /users [delete]
+func UserWithdrawal(c *gin.Context) {
 	c.Status(http.StatusNoContent)
 }
