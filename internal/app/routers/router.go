@@ -13,7 +13,6 @@ func Use(api *gin.RouterGroup) {
 	api.GET("/env", handlers.AppEnv)
 	users := api.Group("/users")
 	{
-		users.POST("/signup", handlers.UserSignup)
 		users.POST("/login", handlers.UserLogin)
 		users.GET("/login/kakao", handlers.UserKakaoLoginCallBack)
 		users.POST("/logout", middlewares.TokenAuthMiddleware(), handlers.UserLogout)
@@ -21,7 +20,9 @@ func Use(api *gin.RouterGroup) {
 		users.GET("/token/valid", middlewares.TokenAuthMiddleware(), handlers.UserTokenValid)
 		users.POST("/token/refresh", handlers.UserTokenRefresh)
 
+		users.POST("", handlers.UserSignup)
 		users.GET("", middlewares.TokenAuthMiddleware(), handlers.UserInfoTokenQuey)
+		users.DELETE("", middlewares.TokenAuthMiddleware(), handlers.UserWithdrawal)
 		users.GET(":userEmail", handlers.UserInfoEmailQuey)
 		users.POST("/avatar", middlewares.TokenAuthMiddleware(), handlers.UploadAvatar)
 		users.DELETE("/avatar", middlewares.TokenAuthMiddleware(), handlers.DeleteAvatar)

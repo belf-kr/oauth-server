@@ -180,6 +180,32 @@ paths:
       tags:
       - App
   /users:
+    delete:
+      consumes:
+      - application/json
+      description: 사용자를 삭제합니다.
+      parameters:
+      - description: Bearer {AccessToken}
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: ""
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrResponse'
+      summary: 사용자 삭제 (회원탈퇴)
+      tags:
+      - User
     get:
       consumes:
       - application/json
@@ -207,7 +233,44 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.ErrResponse'
-      summary: Token으로 사용자 정보 조회
+      summary: 사용자 조회
+      tags:
+      - User
+    post:
+      consumes:
+      - application/json
+      description: 사용자를 생성합니다.
+      parameters:
+      - description: 회원가입을 위한 정보
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserSignUp'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          headers:
+            Location:
+              description: /users/1
+              type: string
+          schema:
+            $ref: '#/definitions/entitys.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrResponse'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/models.ErrResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrResponse'
+      summary: 사용자 생성 (회원가입)
       tags:
       - User
   /users/{userEmail}:
@@ -397,44 +460,6 @@ paths:
           schema:
             $ref: '#/definitions/models.ErrResponse'
       summary: 로그아웃
-      tags:
-      - User
-  /users/signup:
-    post:
-      consumes:
-      - application/json
-      description: 사용자를 생성합니다.
-      parameters:
-      - description: 회원가입을 위한 정보
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/models.UserSignUp'
-      produces:
-      - application/json
-      responses:
-        "201":
-          description: Created
-          headers:
-            Location:
-              description: /users/1
-              type: string
-          schema:
-            $ref: '#/definitions/entitys.User'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/models.ErrResponse'
-        "409":
-          description: Conflict
-          schema:
-            $ref: '#/definitions/models.ErrResponse'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/models.ErrResponse'
-      summary: 회원가입
       tags:
       - User
   /users/token/refresh:

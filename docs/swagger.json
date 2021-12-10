@@ -96,7 +96,7 @@
                 "tags": [
                     "User"
                 ],
-                "summary": "Token으로 사용자 정보 조회",
+                "summary": "사용자 조회",
                 "parameters": [
                     {
                         "type": "string",
@@ -121,6 +121,101 @@
                     },
                     "404": {
                         "description": ""
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "사용자를 생성합니다.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "사용자 생성 (회원가입)",
+                "parameters": [
+                    {
+                        "description": "회원가입을 위한 정보",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.UserSignUp"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/entitys.User"
+                        },
+                        "headers": {
+                            "Location": {
+                                "type": "string",
+                                "description": "/users/1"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrResponse"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "사용자를 삭제합니다.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "사용자 삭제 (회원탈퇴)",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer {AccessToken}",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": ""
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrResponse"
+                        }
                     },
                     "500": {
                         "description": "Internal Server Error",
@@ -359,64 +454,6 @@
                     },
                     "401": {
                         "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/models.ErrResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/models.ErrResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/users/signup": {
-            "post": {
-                "description": "사용자를 생성합니다.",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "User"
-                ],
-                "summary": "회원가입",
-                "parameters": [
-                    {
-                        "description": "회원가입을 위한 정보",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/models.UserSignUp"
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Created",
-                        "schema": {
-                            "$ref": "#/definitions/entitys.User"
-                        },
-                        "headers": {
-                            "Location": {
-                                "type": "string",
-                                "description": "/users/1"
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/models.ErrResponse"
-                        }
-                    },
-                    "409": {
-                        "description": "Conflict",
                         "schema": {
                             "$ref": "#/definitions/models.ErrResponse"
                         }
