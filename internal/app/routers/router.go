@@ -16,11 +16,15 @@ func Use(api *gin.RouterGroup) {
 		users.POST("/signup", handlers.UserSignup)
 		users.POST("/login", handlers.UserLogin)
 		users.GET("/login/kakao", handlers.UserKakaoLoginCallBack)
-		users.GET("", middlewares.TokenAuthMiddleware(), handlers.UserInfoTokenQuey)
-		users.GET(":userEmail", handlers.UserInfoEmailQuey)
 		users.POST("/logout", middlewares.TokenAuthMiddleware(), handlers.UserLogout)
+
 		users.GET("/token/valid", middlewares.TokenAuthMiddleware(), handlers.UserTokenValid)
 		users.POST("/token/refresh", handlers.UserTokenRefresh)
+
+		users.GET("", middlewares.TokenAuthMiddleware(), handlers.UserInfoTokenQuey)
+		users.GET(":userEmail", handlers.UserInfoEmailQuey)
+		users.POST("/avatar", middlewares.TokenAuthMiddleware(), handlers.UploadAvatar)
+		users.DELETE("/avatar", middlewares.TokenAuthMiddleware(), handlers.DeleteAvatar)
 	}
 	configs := api.Group("/configs")
 	{
