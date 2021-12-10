@@ -530,5 +530,20 @@ func UploadAvatar(c *gin.Context) {
 // @Success 204
 // @Router /users/avatar [delete]
 func DeleteAvatar(c *gin.Context) {
+	au, err := auth.ExtractTokenMetadata(c.Request)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, models.ErrResponse{
+			Message: err.Error(),
+		})
+		return
+	}
+
+	if err := orm.Client.Model(&entitys.User{}).Where("id = ?", au.UserId).Update("AvatarImage", nil).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, models.ErrResponse{
+			Message: err.Error(),
+		})
+		return
+	}
+
 	c.Status(http.StatusNoContent)
 }
