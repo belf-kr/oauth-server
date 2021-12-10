@@ -468,12 +468,55 @@ func UserTokenRefresh(c *gin.Context) {
 // @Summary 사용자 프로필 사진 업로드
 // @Description 사용자 프로필 사진을 업로드 합니다.
 // @Tags User
-// @Accept json
+// @Accept mpfd
 // @Produce json
 // @Param Authorization header string true "Bearer {AccessToken}"
+// @Param file formData file true "프로필 사진"
+// @Success 201
+// @Failure 400 {object} models.ErrResponse
+// @Failure 401 {object} models.ErrResponse
+// @Failure 500 {object} models.ErrResponse
 // @Router /users/avatar [post]
 func UploadAvatar(c *gin.Context) {
-	c.JSON(http.StatusOK, map[string]string{
-		"조회": "완료",
-	})
+	au, err := auth.ExtractTokenMetadata(c.Request)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, models.ErrResponse{
+			Message: err.Error(),
+		})
+		return
+	}
+
+	file, err := c.FormFile("file")
+	if err != nil {
+		c.JSON(http.StatusBadRequest, models.ErrResponse{
+			Message: err.Error(),
+		})
+		return
+	}
+
+	fileContent, err := file.Open()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, models.ErrResponse{
+			Message: err.Error(),
+		})
+		return
+	}
+	defer fileContent.Close()
+
+	fileData, err := ioutil.ReadAll(fileContent)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, models.ErrResponse{
+			Message: err.Error(),
+		})
+		return
+	}
+
+	if err := orm.Client.Model(&entitys.User{}).Where("id = ?", au.UserId).Update("AvatarImage", fileData).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, models.ErrResponse{
+			Message: err.Error(),
+		})
+		return
+	}
+
+	c.Status(http.StatusCreated)
 }

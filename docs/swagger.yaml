@@ -242,7 +242,7 @@ paths:
   /users/avatar:
     post:
       consumes:
-      - application/json
+      - multipart/form-data
       description: 사용자 프로필 사진을 업로드 합니다.
       parameters:
       - description: Bearer {AccessToken}
@@ -250,8 +250,28 @@ paths:
         name: Authorization
         required: true
         type: string
+      - description: 프로필 사진
+        in: formData
+        name: file
+        required: true
+        type: file
       produces:
       - application/json
+      responses:
+        "201":
+          description: ""
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ErrResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrResponse'
       summary: 사용자 프로필 사진 업로드
       tags:
       - User
