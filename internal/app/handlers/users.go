@@ -569,14 +569,14 @@ func UserWithdrawal(c *gin.Context) {
 	}
 
 	// 카카오 테이블만 삭제하더라도 reference된 사용자 데이블도 cascade로 같이 삭제되지만 카카오 로그인이 아닌 회원가입의 경우 삭제되지 않기 때문에 2번의 쿼리로 사용자 데이터를 삭제하도록 합니다.
-	if err := orm.Client.Where("id = ?", au.UserId).Delete(&entitys.User{}).Error; err != nil {
+	if err := orm.Client.Where("email = ?", au.UserId).Delete(&entitys.User{}).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, models.ErrResponse{
 			Message: err.Error(),
 		})
 		return
 	}
 
-	if err := orm.Client.Where("id = ?", au.UserId).Delete(&entitys.KakaoTalkSocial{}).Error; err != nil {
+	if err := orm.Client.Where("email = ?", au.UserId).Delete(&entitys.KakaoTalkSocial{}).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, models.ErrResponse{
 			Message: err.Error(),
 		})
