@@ -3,3 +3,6 @@
 LICENSE
 *.md
 *.log
+
+# client 테스트 파일
+test/kakao-login
