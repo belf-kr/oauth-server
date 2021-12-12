@@ -103,7 +103,7 @@ export default function Home() {
         </>
       ) : (
         <>
-          <h3>로그인되지 않았거나 token이 손상 됨</h3>
+          <h3>로그인되지 않았거나 token이 손상됨</h3>
         </>
       )}
     </>
