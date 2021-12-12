@@ -27,10 +27,10 @@ export default function Home() {
 
   useEffect(() => {
     (async () => {
-      if (!accessToken) {
-        return;
-      }
       try {
+        if (!accessToken) {
+          return;
+        }
         const res = await GetUserInfo();
         setUserInfo(res);
       } catch (error) {
@@ -45,6 +45,8 @@ export default function Home() {
                 break;
             }
           }
+          setError(error.message);
+          return;
         }
         setError(error);
       }
@@ -58,6 +60,10 @@ export default function Home() {
         const res = await GetConfig();
         setConfig(res);
       } catch (error) {
+        if (error instanceof Error) {
+          setError(error.message);
+          return;
+        }
         setError(error);
       }
     })();
@@ -67,7 +73,7 @@ export default function Home() {
     return (
       <>
         <h3>에러 발생</h3>
-        <span>{JSON.stringify(error)}</span>
+        <span>{error}</span>
       </>
     );
   }
@@ -91,9 +97,9 @@ export default function Home() {
             alt="사용자 프로필 사진이 없는거 같습니다"
             style={{ width: "150px" }}
           />
-          <span>{userInfo.id}</span>
-          <span>{userInfo.name}</span>
-          <span>{userInfo.email}</span>
+          <h5>id: {userInfo.id}</h5>
+          <h5>name: {userInfo.name}</h5>
+          <h5>email: {userInfo.email}</h5>
         </>
       ) : (
         <>

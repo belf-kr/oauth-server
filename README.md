@@ -22,6 +22,7 @@ OAuth 인증서버를 구축합니다.
 # 빠른 시작
 
 1. vscode에서 `F5` 혹은 `go run main.go` 으로 시작합니다.
+1. kakao developers에서 kakao application 정보 및 환경변수를 입력해주세요.
 
 # 의존성
 
