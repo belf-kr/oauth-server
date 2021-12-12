@@ -1,7 +1,7 @@
-import { Route, Routes } from "react-router-dom";
-import Home from "pages/Home";
 import AuthEnd from "pages/AuthEnd";
+import Home from "pages/Home";
 import NotFound from "pages/NotFound";
+import { Route, Routes } from "react-router-dom";
 
 export const HomePath = "/";
 export const AuthEndPath = "/auth-end";
