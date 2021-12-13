@@ -153,23 +153,6 @@ paths:
       summary: 구성 조회
       tags:
       - App
-  /env:
-    get:
-      description: 앱의 환경변수를 응답합니다.
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            items:
-              items:
-                type: string
-              type: array
-            type: array
-      summary: 앱 환경 변수
-      tags:
-      - App
   /ping:
     get:
       description: server의 헬스를 체크합니다.
