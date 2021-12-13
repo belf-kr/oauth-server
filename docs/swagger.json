@@ -44,32 +44,6 @@
                 }
             }
         },
-        "/env": {
-            "get": {
-                "description": "앱의 환경변수를 응답합니다.",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "App"
-                ],
-                "summary": "앱 환경 변수",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "type": "array",
-                                "items": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/ping": {
             "get": {
                 "description": "server의 헬스를 체크합니다.",
