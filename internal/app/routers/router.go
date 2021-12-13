@@ -10,7 +10,7 @@ func Use(api *gin.RouterGroup) {
 	api.GET("/", handlers.AppName)
 	api.GET("/ping", handlers.Ping)
 	api.GET("/version", handlers.AppVersion)
-	api.GET("/env", handlers.AppEnv)
+
 	users := api.Group("/users")
 	{
 		users.POST("/login", handlers.UserLogin)
@@ -27,6 +27,7 @@ func Use(api *gin.RouterGroup) {
 		users.POST("/avatar", middlewares.TokenAuthMiddleware(), handlers.UploadAvatar)
 		users.DELETE("/avatar", middlewares.TokenAuthMiddleware(), handlers.DeleteAvatar)
 	}
+
 	configs := api.Group("/configs")
 	{
 		configs.GET("", handlers.GetConfigs)

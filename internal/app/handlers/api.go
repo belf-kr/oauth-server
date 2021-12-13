@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"net/http"
-	"os"
 
 	"github.com/gin-gonic/gin"
 
@@ -36,15 +35,4 @@ func Ping(c *gin.Context) {
 func AppVersion(c *gin.Context) {
 	resData := []byte(project.AppVersion)
 	c.Data(http.StatusOK, "text/html; charset=utf-8", resData)
-}
-
-// @Summary 앱 환경 변수
-// @Description 앱의 환경변수를 응답합니다.
-// @Tags App
-// @Produce json
-// @Success 200 {array} []string
-// @Router /env [get]
-func AppEnv(c *gin.Context) {
-	resData := os.Environ()
-	c.JSON(http.StatusOK, resData)
 }
