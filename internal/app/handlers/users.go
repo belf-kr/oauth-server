@@ -193,6 +193,7 @@ func UserKakaoLoginCallBack(c *gin.Context) {
 			Id:                kakaoUserInformation.Id,
 			Email:             kakaoUserInformation.KakaoAccount.Email,
 			NickName:          kakaoUserInformation.KakaoAccount.Profile.Nickname,
+			ProfileImageUrl:   kakaoUserInformation.KakaoAccount.Profile.ProfileImageUrl,
 			ThumbnailImageUrl: kakaoUserInformation.KakaoAccount.Profile.ThumbnailImageUrl,
 		}
 		if err := orm.Client.Create(&kakaoTalkSocial).Error; err != nil {
@@ -203,7 +204,7 @@ func UserKakaoLoginCallBack(c *gin.Context) {
 		}
 
 		// kakao 프로필 사진 바이너리로 전환
-		url := kakaoTalkSocial.ThumbnailImageUrl
+		url := kakaoTalkSocial.ProfileImageUrl
 		res, err := http.Get(url)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, models.ErrResponse{
