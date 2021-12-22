@@ -21,6 +21,8 @@ OAuth 인증서버를 구축합니다.
 
 # 빠른 시작
 
+> 다른 belf의 API Server 처럼 `docker-compose up -d` 으로 실행할 수 있도록, api-gateway가 oauth-server를 3001으로 호출하는데 그것 또한 맞춰주기
+
 1. vscode에서 `F5` 혹은 `go run main.go` 으로 시작합니다.
 1. kakao developers에서 kakao application 정보 및 환경변수를 입력해주세요.
 
