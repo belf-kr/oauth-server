@@ -23,6 +23,8 @@ OAuth 인증서버를 구축합니다.
 
 > 다른 belf의 API Server 처럼 `docker-compose up -d` 으로 실행할 수 있도록, api-gateway가 oauth-server를 3001으로 호출하는데 그것 또한 맞춰주기
 
+> db 서비스가 초기화 후 웹 서버가 실행되어야하는데 `scratch` image라 [wait-for-it.sh](https://github.com/vishnubob/wait-for-it/) 를 실행하기가 쉽지 않았습니다. 근본적인 해결방법은 아니지만 local 환경에서 build 된 Dockerfile를 테스트하고 싶은 경우 재시작으로 해결하도록 합니다. local 이외 Prod는 k8s가 알아서 핸들링하기 때문에 상관이 없습니다.
+
 1. vscode에서 `F5` 혹은 `go run main.go` 으로 시작합니다.
 1. kakao developers에서 kakao application 정보 및 환경변수를 입력해주세요.
 
