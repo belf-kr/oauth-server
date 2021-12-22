@@ -1,4 +1,4 @@
-# oauth-server
+# Overview
 
 OAuth 인증서버를 구축합니다.
 
@@ -15,23 +15,16 @@ OAuth 인증서버를 구축합니다.
 1. redis:6.2.4
 1. docker
 
-# 시퀀스 다이어그램
+# Quick Start
 
-> 추가 예정
-
-# 빠른 시작
-
-> 다른 belf의 API Server 처럼 `docker-compose up -d` 으로 실행할 수 있도록, api-gateway가 oauth-server를 3001으로 호출하는데 그것 또한 맞춰주기
-
-> db 서비스가 초기화 후 웹 서버가 실행되어야하는데 `scratch` image라 [wait-for-it.sh](https://github.com/vishnubob/wait-for-it/) 를 실행하기가 쉽지 않았습니다. 근본적인 해결방법은 아니지만 local 환경에서 build 된 Dockerfile를 테스트하고 싶은 경우 재시작으로 해결하도록 합니다. local 이외 Prod는 k8s가 알아서 핸들링하기 때문에 상관이 없습니다.
+## 개발 환경
 
 1. vscode에서 `F5` 혹은 `go run main.go` 으로 시작합니다.
 1. kakao developers에서 kakao application 정보 및 환경변수를 입력해주세요.
 
-# 의존성
+## 제품 시작
 
-| 이름                                       | 명령어                                |
-| ------------------------------------------ | ------------------------------------- |
-| [gin](https://github.com/gin-gonic/gin)    | `go get -u github.com/gin-gonic/gin`  |
-| [redis](https://github.com/go-redis/redis) | `go get github.com/go-redis/redis/v8` |
-| [GORM](https://github.com/go-gorm/gorm)    | `go get -u gorm.io/gorm`              |
+1. [config.prod.json](./config.prod.json) 에서 필요한 환경 변수를 설정합니다.
+1. `docker-compose up -d` docker image 생성 후 컨테이너를 실행합니다.
+
+> db 서비스가 초기화 후 웹 서버가 실행되어야하는데 `scratch` image라 [wait-for-it.sh](https://github.com/vishnubob/wait-for-it/) 를 실행하기가 쉽지 않았습니다. 근본적인 해결방법은 아니지만 local 환경에서 build 된 Dockerfile를 테스트하고 싶은 경우 재시작으로 해결하도록 합니다. local 이외 Prod는 k8s가 알아서 핸들링하기 때문에 상관이 없습니다.
