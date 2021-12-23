@@ -23,7 +23,7 @@ func Use(api *gin.RouterGroup) {
 		users.POST("", handlers.UserSignup)
 		users.GET("", middlewares.TokenAuthMiddleware(), handlers.UserInfoTokenQuey)
 		users.DELETE("", middlewares.TokenAuthMiddleware(), handlers.UserWithdrawal)
-		users.GET(":userEmail", handlers.UserInfoEmailQuey)
+		users.GET(":userKey", handlers.UserInfoQuey)
 		users.POST("/avatar", middlewares.TokenAuthMiddleware(), handlers.UploadAvatar)
 		users.DELETE("/avatar", middlewares.TokenAuthMiddleware(), handlers.DeleteAvatar)
 	}

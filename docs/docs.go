@@ -548,9 +548,9 @@ var doc = `{
                 }
             }
         },
-        "/users/{userEmail}": {
+        "/users/{userKey}": {
             "get": {
-                "description": "사용자 이메일으로 사용자를 조회합니다.",
+                "description": "id 혹은 email로 사용자를 조회합니다.",
                 "consumes": [
                     "application/json"
                 ],
@@ -560,12 +560,12 @@ var doc = `{
                 "tags": [
                     "User"
                 ],
-                "summary": "Email로 사용자 정보 조회",
+                "summary": "사용자 조회",
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "사용자 Email",
-                        "name": "userEmail",
+                        "description": "id or email",
+                        "name": "userKey",
                         "in": "path",
                         "required": true
                     }
