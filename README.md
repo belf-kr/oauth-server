@@ -19,6 +19,7 @@
 ## 개발 환경
 
 1. [config.dev.json](./configs/config.dev.json) 에서 필요한 환경 변수를 설정합니다.
+1. `docker-compose up -d` 으로 db server와 같은 개발에 필요한 컨테이너를 올립니다.
 1. vscode의 `실행 및 디버그` 에서 `Server` 으로 실행 혹은 터미널에 `export GO_ENV=development && go run main.go` 으로 시작합니다.
 
 ## 제품 시작
@@ -27,6 +28,8 @@
 1. `docker-compose up -d` docker image 생성 후 컨테이너를 실행합니다.
 
 > db 서비스가 초기화 후 웹 서버가 실행되어야하는데 `scratch` image라 [wait-for-it.sh](https://github.com/vishnubob/wait-for-it/) 를 실행하기가 쉽지 않았습니다. 근본적인 해결방법은 아니지만 local 환경에서 build 된 Dockerfile를 테스트하고 싶은 경우 재시작으로 해결하도록 합니다. local 이외 Prod는 k8s가 알아서 핸들링하기 때문에 상관이 없습니다.
+
+# Other
 
 ## swagger 확인 및 업데이트 방법
 
