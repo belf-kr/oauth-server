@@ -5,6 +5,7 @@ import {
   delLocalStorageAccessToken,
   delLocalStorageRefreshToken,
   getLocalStorageAccessToken,
+  getLocalStorageRefreshToken,
 } from "libs/local-storage";
 import { useEffect, useState } from "react";
 
@@ -14,6 +15,7 @@ export default function Home() {
   const [error, setError] = useState<any>();
 
   const accessToken = getLocalStorageAccessToken();
+  const refreshToken = getLocalStorageRefreshToken();
 
   function handleKakaoLogin() {
     if (!config) {
@@ -25,10 +27,16 @@ export default function Home() {
     window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code`;
   }
 
+  function handleTokenClear() {
+    delLocalStorageAccessToken();
+    delLocalStorageRefreshToken();
+    window.location.reload();
+  }
+
   useEffect(() => {
     (async () => {
       try {
-        if (!accessToken) {
+        if (!accessToken && !refreshToken) {
           return;
         }
         const res = await GetUserInfo();
@@ -72,6 +80,7 @@ export default function Home() {
   if (error) {
     return (
       <>
+        <button onClick={handleTokenClear}>token clear</button>
         <h3>에러 발생</h3>
         <span>{error}</span>
       </>
@@ -88,9 +97,9 @@ export default function Home() {
 
   return (
     <>
-      <button onClick={handleKakaoLogin}>카카오 로그인</button>
       {userInfo ? (
         <>
+          <button onClick={handleTokenClear}>로그아웃</button>
           <h3>카카오 로그인 완료</h3>
           <img
             src={userInfo.avatarImage}
@@ -103,6 +112,7 @@ export default function Home() {
         </>
       ) : (
         <>
+          <button onClick={handleKakaoLogin}>카카오 로그인</button>
           <h3>로그인되지 않았거나 token이 손상됨</h3>
         </>
       )}
