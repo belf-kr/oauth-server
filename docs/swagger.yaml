@@ -259,15 +259,15 @@ paths:
       summary: 사용자 생성 (회원가입)
       tags:
       - User
-  /users/{userEmail}:
+  /users/{userKey}:
     get:
       consumes:
       - application/json
-      description: 사용자 이메일으로 사용자를 조회합니다.
+      description: id 혹은 email로 사용자를 조회합니다.
       parameters:
-      - description: 사용자 Email
+      - description: id or email
         in: path
-        name: userEmail
+        name: userKey
         required: true
         type: string
       produces:
@@ -285,7 +285,7 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.ErrResponse'
-      summary: Email로 사용자 정보 조회
+      summary: 사용자 조회
       tags:
       - User
   /users/avatar:

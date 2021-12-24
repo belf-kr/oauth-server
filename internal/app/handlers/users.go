@@ -291,32 +291,33 @@ func UserInfoTokenQuey(c *gin.Context) {
 	c.JSON(http.StatusOK, res)
 }
 
-// @Summary Email로 사용자 정보 조회
-// @Description 사용자 이메일으로 사용자를 조회합니다.
+// @Summary 사용자 조회
+// @Description id 혹은 email로 사용자를 조회합니다.
 // @Tags User
 // @Accept json
 // @Produce json
-// @Param userEmail path string true "사용자 Email"
+// @Param userKey path string true "id or email"
 // @Success 200 {object} models.UserInfo
 // @Failure 400
 // @Failure 404
 // @Failure 500 {object} models.ErrResponse
-// @Router /users/{userEmail} [get]
-func UserInfoEmailQuey(c *gin.Context) {
-	userEmail := c.Param("userEmail")
-	if userEmail == "" {
+// @Router /users/{userKey} [get]
+func UserInfoQuey(c *gin.Context) {
+	userKey := c.Param("userKey")
+	if userKey == "" {
 		c.Status(http.StatusBadRequest)
 		return
 	}
 
 	user := entitys.User{}
-	if err := orm.Client.Where("email = ?", userEmail).Find(&user).Error; err != nil {
+	result := orm.Client.Where("id = ?", userKey).Or("email = ?", userKey).Find(&user)
+	if result.Error != nil {
 		c.JSON(http.StatusInternalServerError, models.ErrResponse{
-			Message: err.Error(),
+			Message: result.Error.Error(),
 		})
 		return
 	}
-	if userEmail != user.Email {
+	if result.RowsAffected == 0 {
 		c.Status(http.StatusNotFound)
 		return
 	}
