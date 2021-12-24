@@ -16,7 +16,24 @@
 
 ## 표
 
-| Variable | dev | qa/prod | Default value | Example                 | Explanation                                                            |
-| -------- | :-: | :-----: | :-----------: | ----------------------- | ---------------------------------------------------------------------- |
-| GO_ENV   | ✅  |   ✅    |      🤷‍♂️       | development, production | `Go 실행 환경` 을 설정하는 값이며 프로그램 시작 전 값이 있어야 합니다. |
-| ?        | 🚫  |   ✅    |       ?       | ?                       | ?                                                                      |
+| Variable              | dev | qa/prod | Default value | Example                 | Explanation                                                            |
+| --------------------- | :-: | :-----: | :-----------: | ----------------------- | ---------------------------------------------------------------------- |
+| GO_ENV                | ✅  |   ✅    |      🤷‍♂️       | development, production | `Go 실행 환경` 을 설정하는 값이며 프로그램 시작 전 값이 있어야 합니다. |
+| STAGES                | 🚫  |   ✅    |       ?       | ?                       | ?                                                                      |
+| SERVER_PORT           | 🚫  |   ✅    |       ?       | ?                       | ?                                                                      |
+| SWAGGER_HOSTNAME      | 🚫  |   ✅    |       ?       | ?                       | ?                                                                      |
+| SWAGGER_PORT          | 🚫  |   ✅    |       ?       | ?                       | ?                                                                      |
+| KAKAO_REST_API_KEY    | 🚫  |   ✅    |       ?       | ?                       | ?                                                                      |
+| KAKAO_REDIRECT_URI    | 🚫  |   ✅    |       ?       | ?                       | ?                                                                      |
+| JWT_ACCESS_SECRET     | 🚫  |   ✅    |       ?       | ?                       | ?                                                                      |
+| JWT_REFRESH_SECRET    | 🚫  |   ✅    |       ?       | ?                       | ?                                                                      |
+| AUTH_REDIRECT_URL     | 🚫  |   ✅    |       ?       | ?                       | ?                                                                      |
+| MYSQL_MASTER_HOST     | 🚫  |   ✅    |       ?       | ?                       | ?                                                                      |
+| MYSQL_MASTER_PORT     | 🚫  |   ✅    |       ?       | ?                       | ?                                                                      |
+| MYSQL_MASTER_USERNAME | 🚫  |   ✅    |       ?       | ?                       | ?                                                                      |
+| MYSQL_MASTER_PASSWORD | 🚫  |   ✅    |       ?       | ?                       | ?                                                                      |
+| MYSQL_MASTER_DATABASE | 🚫  |   ✅    |       ?       | ?                       | ?                                                                      |
+| REDIS_HOST            | 🚫  |   ✅    |       ?       | ?                       | ?                                                                      |
+| REDIS_PORT            | 🚫  |   ✅    |       ?       | ?                       | ?                                                                      |
+| REDIS_PASSWORD        | 🚫  |   ✅    |       ?       | ?                       | ?                                                                      |
+| REDIS_DATABASE        | 🚫  |   ✅    |       ?       | ?                       | ?                                                                      |
