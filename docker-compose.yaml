@@ -19,3 +19,15 @@ services:
     container_name: redis-dev
     ports:
       - 6379:6379
+  oauth-server:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: belf-oauth-server
+    depends_on:
+      - mysql
+    container_name: oauth-server-dev
+    ports:
+      - 3001:8080
+    environment:
+      - SWAGGER_PORT=3001
