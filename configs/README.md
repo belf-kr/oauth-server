@@ -1,6 +1,7 @@
 # 환경 변수
 
-> 모두 대문자 key인 환경변수의 경우 `config` 에도 지정되어 있고 `env` 로도 넣어준다면 `env` 값을 사용하게 됩니다.
+1. 모두 대문자 key인 환경변수의 경우 `config` 에도 지정되어 있고 `env` 로도 넣어준다면 `env` 값을 사용하게 됩니다.
+1. kakao 로그인을 사용하기 위해서는 [kakao developers](https://developers.kakao.com/) 에서 kakao application 정보를 입력해야합니다.
 
 ## 표 범례
 
@@ -15,7 +16,7 @@
 
 ## 표
 
-| Variable | dev | qa/prod | Default value | Example | Explanation |
-| -------- | :-: | :-----: | :-----------: | ------- | ----------- |
-| ?        | ✅  |   ✅    |       ?       | ?       | ?           |
-| ?        | 🚫  |   ✅    |       ?       | ?       | ?           |
+| Variable | dev | qa/prod | Default value | Example                 | Explanation                                                            |
+| -------- | :-: | :-----: | :-----------: | ----------------------- | ---------------------------------------------------------------------- |
+| GO_ENV   | ✅  |   ✅    |      🤷‍♂️       | development, production | `Go 실행 환경` 을 설정하는 값이며 프로그램 시작 전 값이 있어야 합니다. |
+| ?        | 🚫  |   ✅    |       ?       | ?                       | ?                                                                      |
