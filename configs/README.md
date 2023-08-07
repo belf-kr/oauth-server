@@ -1,5 +1,7 @@
 # 환경 변수
 
+[`한국어(KR)`](./README.md) | [English](./README.en-US.md)
+
 1. 모두 대문자 key인 환경변수의 경우 `config` 에도 지정되어 있고 `env` 로도 넣어준다면 `env` 값을 사용하게 됩니다.
 1. kakao 로그인을 사용하기 위해서는 [kakao developers](https://developers.kakao.com/) 에서 kakao application 정보를 입력해야합니다.
 1. JWT 관련 secret 유출 시 token을 복호화 할 수 있음으로 주의하도록 합니다!
