@@ -6,7 +6,7 @@
 1. To use kakao login, you must enter kakao application information at [kakao developers](https://developers.kakao.com/).
 1. Be careful that token can be decrypted when JWT-related secret is leaked!
 
-## a token legend
+## Table legend
 
 | Component     | Description                                                                                               |
 | ------------- | --------------------------------------------------------------------------------------------------------- |
